@@ -1,0 +1,176 @@
+﻿@using System.Security.Claims;
+@using System.Threading;
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/Home/Login");
+    }
+    else
+    {
+        var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+        var NombrePersona = identity.Claims.First(c => c.Type == "NombrePersona").Value;
+        var IdRol = identity.Claims.First(c => c.Type == "IdRol").Value;
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>@ViewBag.Title</title>
+            <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+            <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/Content/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+            <link href="~/Content/css/jquery-confirm.min.css" rel="stylesheet" />
+            <link href="~/Content/fontawesome-free-5.12.1/css/all.min.css" rel="stylesheet" />
+            <link href="~/Content/css/CardCuston.css" rel="stylesheet" />
+            <link href="~/Content/css/CustomStyle.css" rel="stylesheet" />
+            <link href="~/Content/css/loader.css" rel="stylesheet" />
+            <link href="~/Content/css/Style.css" rel="stylesheet" />
+            <link href="~/Content/css/toastr.css" rel="stylesheet" />
+
+            <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+            <script src="~/Content/js/bootstrap.min.js"></script>
+            <script src="~/Content/js/jquery.dataTables.min.js"></script>
+            <script src="~/Content/js/dataTables.bootstrap4.min.js"></script>
+            <script src="~/Content/js/jquery.toaster.js"></script>
+            <script src="~/Content/js/jquery-confirm.min.js"></script>
+            <script src="~/Content/js/toastr.js"></script>
+            <style>
+                * {
+                    font-size: 12px;
+                }
+                /*#004686*/
+                nav.navbar {
+                    background-color: #004686;
+                    font-size: 14px;
+                }
+
+                    nav.navbar ul.nav li {
+                        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                        color: #ffffff;
+                    }
+
+                td.details-control {
+                    background: url('../img/Add.png') no-repeat center center;
+                    cursor: pointer;
+                }
+
+                tr.shown td.details-control {
+                    background: url('../img/Less.png') no-repeat center center;
+                }
+            </style>
+            @*@Styles.Render("~/Content/css")*@
+            @*@Scripts.Render("~/bundles/modernizr")*@
+        </head>
+        <body>
+            <div>
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand blanco" href="@Url.Action("Inicio","Home")">Post-Grado</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Home")" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Persona")" class="nav-link"><i class="fa fa-users" aria-hidden="true"></i> Personas</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Usuario")" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> Usuario</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Ambiente")" class="nav-link"><i class="fas fa-archway"></i> Ambiente</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","ProgramaAcademico")" class="nav-link"><i class="fas fa-cogs" aria-hidden="true"></i> Programa Academico</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Formacion")" class="nav-link"><i class="fas fa-cogs" aria-hidden="true"></i> Formación</a>
+                            </li>
+                            @*@if (UsuarioLogin.PerfilSistema == 1)
+        {
+            <li class="nav-item active">
+                <a href="@Url.Action("Inicio","Usuario")" class="nav-link"><i class="fa fa-university" aria-hidden="true"></i> Usuario</a>
+            </li>
+            <li class="nav-item active">
+                <a href="@Url.Action("Inicio","Categorias")" class="nav-link"><i class="fa fa-tasks" aria-hidden="true"></i> Categoria</a>
+            </li>
+            <li class="nav-item active">
+                <a href="@Url.Action("Inicio","Producto")" class="nav-link"><i class="fas fa-warehouse"></i> Almacen</a>
+            </li>
+        }*@
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="far fa-money-bill-alt"></i> Tesoreria
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @*@if (UsuarioLogin.PerfilSistema == 1)
+                {
+                    <a href="@Url.Action("Inicio","Cajas")" class="dropdown-item"><i class="far fa-money-bill-alt"></i> Adm Cajas</a>
+                }*@
+                                    <a href="@Url.Action("Inicio","AperturaCaja")" class="dropdown-item"><i class="fas fa-hand-holding-usd"></i> Apertura/Cierre</a>
+                                </div>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Ventas")" class="nav-link"><i class="fas fa-hand-holding-usd"></i> Venta</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Vale")" class="nav-link"><i class="far fa-file-alt"></i> Vale</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Creditos")" class="nav-link"><i class="fas fa-hand-holding"></i> Cobros Credito</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","AnulacionVenta")" class="nav-link"><i class="fas fa-scroll"></i> Ventas Realizadas</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Inicio","Reportes")" class="nav-link"><i class="fa fa-sitemap" aria-hidden="true"></i> Reportes</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item" active>
+                                <a class="nav-link" href="#" id="navbarDropdown" data-toggle="modal" data-target="#ModalUsuario" role="button">
+                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i> @NombrePersona
+                                </a>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0" method="post" action="@Url.Action("Logout", "Home")">
+                            <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</button>
+                        </form>
+                    </div>
+                </nav>
+                @RenderBody()
+            </div>
+            @*@Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")*@
+            <script type="text/javascript">
+                function MostarInfSave(Data) {
+                    Data.forEach(value => {
+                        switch (value.Tipo) {
+                            case 'Success':
+                                toastr.success(value.Nombre);
+                                break;
+                            case 'warning':
+                                toastr.warning(value.Nombre);
+                                break;
+                            case 'info':
+                                toastr.info(value.Nombre);
+                                break;
+                            case 'error':
+                                toastr.error(value.Nombre);
+                                break;
+                            default:
+                        }
+                    });
+                }
+            </script>
+            @RenderSection("scripts", required: false)
+        </body>
+    </html>
+}
+}

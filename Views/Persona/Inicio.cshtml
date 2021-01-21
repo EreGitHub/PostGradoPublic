@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Persona<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card mb-3 m-1">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <div class="col-sm">
+                    <h4 class="form-section"><i class="fa fa-user"></i> Persona</h4>
+                    <button type="button" onclick="Nuevo()" class="btn btn-outline-primary btn-block"><i class="fa fa-plus"></i><span style="margin-left:5px">Nuevo Registro</span> </button>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <input type="hidden" id="IdPersona" value="0" />
+                            <label>DNI</label>
+                            <input type="text" disabled class="form-control" placeholder="Dni" id="DNI" />
+                            <label>Nombres</label>
+                            <input type="text" disabled class="form-control" placeholder="Nombres" id="Nombres" />
+                            <label>Apellido Paterno</label>
+                            <input type="text" disabled class="form-control" placeholder="Apellido Paterno" id="Apaterno" />
+                            <label>Apellido Materno</label>
+                            <input type="text" disabled class="form-control" placeholder="Apellido Materno" id="Amaterno" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>Sexo</label>
+                            <select id="Sexo" disabled class="form-control">
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                            <label>Fecha Nacimiento</label>
+                            <input type="date" disabled class="form-control" placeholder="Fecha Nacimiento" id="FecNac" />
+                            <label>Direccion</label>
+                            <input type="text" disabled class="form-control" placeholder="Direccion" id="Direccion" />
+                            <label>Telefono</label>
+                            <input type="text" disabled class="form-control" placeholder="Telefono" id="Fono" />
+                        </div>
+                    </div>
+                    <hr style="margin-bottom:2px" />
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-secondary btn-block" style="margin-bottom:10px" onclick="Cancelar()">Cancelar</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" disabled id="BtnGuardar" class="btn btn-success btn-block" style="margin-bottom:10px" onclick="Guardar()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <div class="col-sm">
+                    <h4 class="form-section"><i class="fa fa-users"></i> Lista Personas</h4>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="col-lg-10 col-md-10 col-sm-10">
+                            <div class="input-group" style="margin-bottom:5px">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="TxtParametroPersona" placeholder="Buscar por Ci..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <button type="button" onclick='ListarPersonas(1,1)' style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
+                        </div>
+                    </div>
+                    <div class="containerCustom table-responsive">
+                        <table class='table table-hover table-sm' style='font-size:12px;'>
+                            <thead>
+                                <tr style="background-color:#17a2b8;border-color:#17a2b8;color:white">
+                                    <th width='1px'>Nº</th>
+                                    <th>Nombre</th>
+                                    <th>A. Paterno</th>
+                                    <th>A. Materno</th>
+                                    <th>Ci</th>
+                                    <th width='1px'></th>
+                                    <th width='1px'></th>
+                                </tr>
+                            </thead>
+                            <tbody id="PersonaTableHtml"></tbody>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <ul class='pagination justify-content-end' id="PageInscriptos"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var EstadoModificar = false;
+        ListarPersonas(1,1);
+        function ListarPersonas(pageIndex, is) {            
+            $.getJSON('@Url.Action("AllPerson", "Persona")', { SearchValue: $('#TxtParametroPersona').val(), PageIndex: pageIndex }, function (O) {
+                var html = "";
+                $('#PersonaTableHtml').empty();
+                O.Lst.forEach((value, i) => {
+                    html += "<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td><button class='btn btn-outline-info btn-sm' onclick='ViewPersona(" + value.Id + ",false)'><i class='fa fa-eye'></i></button></td><td><button class='btn btn-outline-secondary btn-sm' onclick='ViewPersona(" + value.Id + ",true)'><i class='fa fa-pen'></i></button></td></tr>";
+                });
+                $('#PersonaTableHtml').append(html);
+                var TotalPages = parseInt(O.TotalPages);
+                var rangeMin = 4;
+                var rangeMax = parseInt(TotalPages) == 1 ? 1 : rangeMin && parseInt(TotalPages) < rangeMin ? parseInt(TotalPages) : rangeMin;
+
+                const paging = { range: rangeMax, pages: TotalPages };
+                var PageArray = doPaging(pageIndex, paging);
+                var sTatusPrev = (pageIndex <= 1) ? true : false;
+                var sTatuslast = (pageIndex >= paging.pages) ? true : false;
+                var html = "<li class='page-item first " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(1, " + TotalPages + ")'>First</a></li><li class='page-item prev  " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(" + parseInt(pageIndex - 1) + ", " + TotalPages + ")'>Prev</a></li>";
+                PageArray.forEach((value, i) => {
+                    html += value.Status
+                        ?
+                        "<li class='page-item active'><a class='page-link' href='#' onclick='ListarPersonas(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>"
+                        :
+                        "<li class='page-item'><a class='page-link' href='#' onclick='ListarPersonas(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>";
+                });
+                html += "<li class='page-item next " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(" + parseInt(pageIndex + 1) + ", " + TotalPages + ")'>Next</a></li><li class='page-item last " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(" + paging.pages + ", " + TotalPages + ")'>Last</a></li>";
+                $('#PageInscriptos').html(html);
+            });
+        }
+        function doPaging(current, { range, pages, start = 1 }) {
+            const paging = [];
+            var i = Math.min(pages + start - range, Math.max(start, current - (range / 2 | 0)));
+            const end = i + range;
+            while (i < end) {
+                var infStatus = i === current ? true : false;
+                paging.push({ Page: i++, Status: infStatus });
+            };
+            return paging;
+        };
+        function ViewPersona(IdPersona, _EstadoModificar) {
+            EstadoModificar = _EstadoModificar;
+            disabledHtml();    
+            $.getJSON('@Url.Action("GetPersonaObj", "Persona")', { IdPersona: IdPersona }, function (O) {     
+                $("#IdPersona").val(O.Id);
+                $("#DNI").val(O.DNI);
+                $("#Nombres").val(O.Nombres);
+                $("#Apaterno").val(O.Apaterno);
+                $("#Amaterno").val(O.Amaterno);
+                $("#Sexo").val(O.Sexo);
+                $("#FecNac").val(O.FecNac);
+                $("#Direccion").val(O.Direccion);
+                $("#Fono").val(O.Fono);
+            });
+        }        
+        function Nuevo() {
+            EstadoModificar = true;
+            disabledHtml();
+            LimpiarDatos();
+        }
+        function Cancelar() {
+            EstadoModificar = false;
+            disabledHtml();
+            LimpiarDatos();
+        }
+        function disabledHtml() {
+            $("#DNI").prop("disabled", !EstadoModificar);
+            $("#Nombres").prop("disabled", !EstadoModificar);
+            $("#Apaterno").prop("disabled", !EstadoModificar);
+            $("#Amaterno").prop("disabled", !EstadoModificar);
+            $("#Sexo").prop("disabled", !EstadoModificar);
+            $("#FecNac").prop("disabled", !EstadoModificar);
+            $("#Direccion").prop("disabled", !EstadoModificar);
+            $("#Fono").prop("disabled", !EstadoModificar);
+            $('#BtnGuardar').prop("disabled",!EstadoModificar);
+        }
+        function LimpiarDatos() {
+            $("#IdPersona").val(0);
+            $("#DNI").val("");
+            $("#Nombres").val("");
+            $("#Apaterno").val("");
+            $("#Amaterno").val("");
+            $("#Sexo").val("M");
+            $("#FecNac").val("");
+            $("#Direccion").val("");
+            $("#Fono").val("");
+        }
+        function Guardar() {                        
+            var Obj = {
+                Id: $("#IdPersona").val(),
+                DNI: $("#DNI").val(),
+                Nombres: $("#Nombres").val(),
+                Apaterno: $("#Apaterno").val(),
+                Amaterno: $("#Amaterno").val(),
+                Sexo: $("#Sexo").val(),
+                FecNac: $("#FecNac").val(),
+                Direccion: $("#Direccion").val(),
+                Fono: $("#Fono").val()
+            };            
+            $.ajax({
+                url: '@Url.Action("Guardar", "Persona")',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(Obj),
+                success: function (O) {
+                    if (O.responce) {
+                        Cancelar();                        
+                        ListarPersonas(1,1);
+                    }
+                    MostarInfSave(O.StatusSave);
+                }
+            });
+        };
+    </script>
+}

@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Ambiente<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card mb-3 m-1">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <div class="col-sm">
+                    <h4 class="form-section"><i class="fas fa-archway"></i> Ambiente</h4>
+                    <button type="button" onclick="Nuevo()" class="btn btn-outline-primary btn-block"><i class="fa fa-plus"></i><span style="margin-left:5px">Nuevo Registro</span> </button>
+                    <input type="hidden" id="IdAmbiente" value="0" />
+                    <label style="margin-top:5px">Nombre Ambiente</label>
+                    <input type="text" id="Nombre" class="form-control" disabled placeholder="Nombre Ambiente" />
+                    <hr style="margin-bottom:2px" />
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-secondary btn-block" style="margin-bottom:10px" onclick="Cancelar()"><i class="far fa-times-circle"></i> Cancelar</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" disabled id="BtnGuardar" class="btn btn-success btn-block" style="margin-bottom:10px" onclick="Guardar()"><i class="far fa-check-circle"></i> Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <div class="col-sm">
+                    <h4 class="form-section"><i class="fas fa-archway"></i> Lista Ambientes</h4>
+                    <div class="containerCustom table-responsive">
+                        <table class='table table-hover table-sm' style='font-size:12px;'>
+                            <thead>
+                                <tr style="background-color:#17a2b8;border-color:#17a2b8;color:white">
+                                    <th width='1px'>Nº</th>
+                                    <th>Ambiente</th>
+                                    <th width='1px'></th>
+                                    <th width='1px'></th>
+                                    <th width='1px'></th>
+                                </tr>
+                            </thead>
+                            <tbody id="AmbienteTableHtml"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        var EstadoModificar = false;
+        var ArrayRol = [];
+        ListarAmbientes(1, 1);
+        function ListarAmbientes(pageIndex, is) {
+            $.getJSON('@Url.Action("Allmbiente", "Ambiente")', { SearchValue: $('#TxtParametroPersona').val() }, function (O) {
+                var html = "";
+                $('#AmbienteTableHtml').empty();
+                O.forEach((value, i) => {
+                    html += "<tr><td>" + (i + 1) + "</td><td>" + value.Nombre + "</td><td><button class='btn btn-outline-info btn-sm' onclick='ViewAmbiente(" + value.Id + ",false)'><i class='fa fa-eye'></i></button></td><td><button class='btn btn-outline-secondary btn-sm' onclick='ViewAmbiente(" + value.Id + ",true)'><i class='fa fa-pen'></i></button></td><td><button class='btn btn-outline-danger btn-sm' onclick='Eliminar(" + value.Id + ")'><i class='fa fa-trash'></i></button></td></tr>";
+                });
+                $('#AmbienteTableHtml').append(html);
+            });
+        }
+        function ViewAmbiente(IdAmbiente, _EstadoModificar) {
+            $.getJSON('@Url.Action("GetObjAmbiente", "Ambiente")', { IdAmbiente }, (O) => {
+                $('#Nombre').val(O.Nombre)
+                $("#IdAmbiente").val(O.Id);
+                EstadoModificar = _EstadoModificar;
+                disabledHtml();
+            });
+        }
+        function Nuevo() {
+            EstadoModificar = true;
+            disabledHtml();
+            LimpiarDatos();
+        }
+        function Cancelar() {
+            EstadoModificar = false;
+            disabledHtml();
+            LimpiarDatos();
+        }
+        function disabledHtml() {
+            $("#Nombre").prop("disabled", !EstadoModificar);
+            $("#BtnGuardar").prop("disabled", !EstadoModificar);
+        }
+        function LimpiarDatos() {
+            $("#Nombre").val("");
+        }
+        function Eliminar(Id) {
+            $.getJSON('@Url.Action("Eliminar", "Ambiente")', { Id }, function (O) {                
+                if (O.responce) {
+                    Cancelar();
+                    ListarAmbientes(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function Guardar() {
+            var Obj = {
+                Id: $('#IdAmbiente').val(),
+                Nombre: $('#Nombre').val()
+            };
+            $.getJSON('@Url.Action("Guardar", "Ambiente")', Obj, function (O) {
+                if (O.responce) {
+                    Cancelar();
+                    ListarAmbientes(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+            @*$.ajax({
+                url: '@Url.Action("Guardar","Usuario")',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(Obj),
+                success: function (O) {
+                    console.log(O)
+                    if (O.responce) {
+                        Cancelar();
+                        ListarAmbientes(1, 1);
+                    }
+                    MostarInfSave(O.StatusSave);
+                }
+            });*@
+        };
+    </script>
+}

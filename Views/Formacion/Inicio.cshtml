@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Formación<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-3 m-1">
+        <div class="card-body">            
+            <button type="button" onclick="Nuevo()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Formación</button>
+
+            <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-cogs"></i> Lista</h4>
+            <div class="row" id="FormacionHtml">
+                <div class='col-xl-3 col-sm-6 col-lg-4 col-12'>
+                    <div class='cardCarCustom card border-primary mb-3'>
+                        <div class='card-body' style='padding:0px'>
+                            <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>Doctorado en Base de Datos</h4>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>18/25/2018</span><i class='far fa-calendar-check'></i> Feha Inicio
+                            </li>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>18/12/2021</span><i class='far fa-calendar-check'></i> Feha Fin
+                            </li>
+                        </ul>
+                        <label class='text-center' style='margin:0 0 0 0'>Institucion</label>
+                        <div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>Universidad Autonoma Juan Misael Saracho</div>                                                
+                        <hr style='margin:4px 0 0 0'>
+                        <div style='margin-top:5px' class='footer'>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <button type='button' onclick='Modificar()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-plus'></i> Modulos</button>
+                                </div>
+                                <div class='col-6'>
+                                    <button type='button' onclick='Eliminar()' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i> Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="Inicio" style="width:100%;padding:17% 0 17% 0">
+                <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> SIN REGISTRO</h1>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Formacion" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalFormacion"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="IdFormacion" value="0" />
+                <label>Titulo</label>
+                <input type="text" id="Titulo" class="form-control" placeholder="Titulo" />
+                <label>Institución</label>
+                <input type="text" id="Institucion" class="form-control" placeholder="Institución" />
+                <label>Fecha Inicio</label>
+                <input type="date" id="FechaInicio" class="form-control" placeholder="Fecha Inicio" />
+                <label>Fecha Fin</label>
+                <input type="date" id="FechaFin" class="form-control" placeholder="Fecha Fin" />                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
+                <button type="button" class="btn btn-outline-primary" onclick="Guardar()"><i class="fa fa-check-circle"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#FormacionHtml').hide();
+        $('#Inicio').show();                
+        AllFormacion();        
+        function AllFormacion() {
+            $.getJSON('@Url.Action("All", "Formacion")', (O) => {
+                if (O.length>0) {
+                    $('#FormacionHtml').empty();
+                    $('#FormacionHtml').show();
+                    $('#Inicio').hide();
+                }
+                var html = "";
+                O.forEach((value, i) => {
+                    html += "<div class='col-xl-3 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Titulo + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaInicio + "</span><i class='far fa-calendar-check'></i> Feha Inicio</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaFin + "</span><i class='far fa-calendar-check'></i> Feha Fin</li></ul><label class='text-center' style='margin:0 0 0 0'>Institucion</label><div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>" + value.Institucion + "</div><hr style='margin:4px 0 0 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' onclick='Modificar(" + value.Id + ",\"" + value.Titulo + "\",\"" + value.Institucion + "\",\"" + value.FechaInicio + "\",\"" + value.FechaFin + "\")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modifiacar</button></div><div class='col-6'><button type='button' onclick='Eliminar(" + value.Id + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i> Eliminar</button></div></div></div></div></div>";
+                });
+                $('#FormacionHtml').html(html);
+            });
+        }        
+        function Nuevo() {            
+            $('#Modal_Formacion').modal('show');
+            $('#TituloModalFormacion').html("Nuevo registro");
+            $('#IdFormacion').val(0);
+            $('#Titulo').val("");
+            $('#Institucion').val("")
+            $('#FechaInicio').val("")
+            $('#FechaFin').val("")
+        }
+        function Modificar(Id, Titulo, Institucion, FechaInicio, FechaFin) {            
+            $('#Modal_Formacion').modal('show');
+            $('#TituloModalFormacion').html("Modificar registro");
+            $('#IdFormacion').val(Id);
+            $('#Titulo').val(Titulo);
+            $('#Institucion').val(Institucion);
+            $('#FechaInicio').val(FechaInicio);
+            $('#FechaFin').val(FechaFin);
+        }
+        function Eliminar(IdFormacion) {
+            $.getJSON('@Url.Action("Eliminar", "Formacion")', { IdFormacion }, (O) => {
+                if (O.responce) {
+                    AllFormacion();
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function Guardar() {
+            var Obj = {
+                Id: $('#IdFormacion').val(),
+                Titulo: $('#Titulo').val(),
+                Institucion: $('#Institucion').val(),
+                FechaInicio: $('#FechaInicio').val(),
+                FechaFin: $('#FechaFin').val()
+            };
+            $.getJSON('@Url.Action("Guardar", "Formacion")', Obj, (O) => {
+                if (O.responce) {
+                    $('#Modal_Formacion').modal('hide');
+                    AllFormacion();
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+    </script>
+}
+

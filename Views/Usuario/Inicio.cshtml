@@ -1,0 +1,283 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container mt-2">
+    <h4>Módulo Usuario<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card mb-3 m-1">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <div class="col-sm">
+                    <h4 class="form-section"><i class="fa fa-user"></i> Usuario</h4>
+                    <button type="button" onclick="Nuevo()" class="btn btn-outline-primary btn-block"><i class="fa fa-plus"></i><span style="margin-left:5px">Nuevo Registro</span> </button>
+                    <label>Estado</label>
+                    <select class="form-control" id="EstadoUsuario" disabled>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <input type="hidden" id="IdPersona" value="0" />
+                            <label>Buscar Persona</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" class="form-control" disabled id="TxtParametroPersona" onkeyup="BuscarPersona()" placeholder="Buscar....">
+                            </div>
+                            <div id="ListarPersona" style="position: absolute; z-index: 10; width: 95%" class="list-group"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>Login</label>
+                            <input type="text" disabled class="form-control" placeholder="Login" id="Login" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>Contraseña</label>
+                            <input type="password" disabled class="form-control" placeholder="Contraseña" id="Contraseña" />
+                            <div id="ActivatePassword" style="display:none">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" onclick="ActiPassword()" class="custom-control-input" id="ActivarPassword">
+                                    <label class="custom-control-label" for="ActivarPassword">Password</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="text-center" style="margin:5px 0 0 0">Permisos Perfile</label>
+                    <text class="form-control" style="height:auto" id="RolExtra">
+                        <div style='width:100%;padding:2px 0 2px 0'>
+                            <h6 class='text-muted text-center'>Seleccione el Perfil</h6>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="Check_Rol_1" disabled name="NameRol" value="1">
+                                        <label class="custom-control-label" for="Check_Rol_1">1.- Director Post-Grado</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" disabled id="Check_Rol_2" name="NameRol" value="2">
+                                        <label class="custom-control-label" for="Check_Rol_2">2.- Secretaria</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" disabled id="Check_Rol_3" name="NameRol" value="3">
+                                        <label class="custom-control-label" for="Check_Rol_3">3.- Docente</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" disabled id="Check_Rol_4" name="NameRol" value="4">
+                                        <label class="custom-control-label" for="Check_Rol_4">4.- Estudiante</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </text>
+                    <hr style="margin-bottom:2px" />
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-secondary btn-block" style="margin-bottom:10px" onclick="Cancelar()"><i class="far fa-times-circle"></i> Cancelar</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" disabled id="BtnGuardar" class="btn btn-success btn-block" style="margin-bottom:10px" onclick="Guardar()"><i class="far fa-check-circle"></i> Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <div class="col-sm">
+                    <h4 class="form-section"><i class="fa fa-users"></i> Lista Usuarios</h4>
+                    <div class="row" style="margin-bottom:5px">
+                        <div class="col-lg-10 col-md-10 col-sm-10">
+                            <div class="input-group" style="margin-bottom:5px">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="TxtPersonParametro" placeholder="Buscar por Ci..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <button type="button" onclick='ListarPersonas(1,1)' style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
+                        </div>
+                    </div>
+                    <div class="containerCustom table-responsive">
+                        <table class='table table-hover table-sm' style='font-size:12px;'>
+                            <thead>
+                                <tr style="background-color:#17a2b8;border-color:#17a2b8;color:white">
+                                    <th width='1px'>Nº</th>
+                                    <th>Persona</th>
+                                    <th>Login</th>
+                                    <th>Estado</th>
+                                    <th width='1px'></th>
+                                    <th width='1px'></th>
+                                </tr>
+                            </thead>
+                            <tbody id="PersonaUsuarioTableHtml"></tbody>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <ul class='pagination justify-content-end' id="PagePerson"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        var EstadoModificar = false;
+        var ArrayRol = [];
+        ListarPersonas(1, 1);       
+        function ListarPersonas(pageIndex, is) {
+            $.getJSON('@Url.Action("AllUsuariosPersona", "Usuario")', { SearchValue: $('#TxtPersonParametro').val(), PageIndex: pageIndex }, function (O) {
+                var html = "";
+                $('#PersonaUsuarioTableHtml').empty();
+                O.Lst.forEach((value, i) => {
+                    html += "<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + " " + value.Apaterno + "</td><td>" + value.Login + "</td><td>" + ((value.Estado)?"Activo":"Inactivo") + "</td><td><button class='btn btn-outline-info btn-sm' onclick='ViewPersona(" + value.Id + ",false)'><i class='fa fa-eye'></i></button></td><td><button class='btn btn-outline-secondary btn-sm' onclick='ViewPersona(" + value.Id + ",true)'><i class='fa fa-pen'></i></button></td></tr>";
+                });
+                $('#PersonaUsuarioTableHtml').append(html);
+                var TotalPages = parseInt(O.TotalPages);
+                var rangeMin = 4;
+                var rangeMax = parseInt(TotalPages) == 1 ? 1 : rangeMin && parseInt(TotalPages) < rangeMin ? parseInt(TotalPages) : rangeMin;
+
+                const paging = { range: rangeMax, pages: TotalPages };
+                var PageArray = doPaging(pageIndex, paging);
+                var sTatusPrev = (pageIndex <= 1) ? true : false;
+                var sTatuslast = (pageIndex >= paging.pages) ? true : false;
+                var html = "<li class='page-item first " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(1, " + TotalPages + ")'>First</a></li><li class='page-item prev  " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(" + parseInt(pageIndex - 1) + ", " + TotalPages + ")'>Prev</a></li>";
+                PageArray.forEach((value, i) => {
+                    html += value.Status
+                        ?
+                        "<li class='page-item active'><a class='page-link' href='#' onclick='ListarPersonas(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>"
+                        :
+                        "<li class='page-item'><a class='page-link' href='#' onclick='ListarPersonas(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>";
+                });
+                html += "<li class='page-item next " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(" + parseInt(pageIndex + 1) + ", " + TotalPages + ")'>Next</a></li><li class='page-item last " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(" + paging.pages + ", " + TotalPages + ")'>Last</a></li>";
+                $('#PagePerson').html(html);
+            });
+        }
+        function doPaging(current, { range, pages, start = 1 }) {
+            const paging = [];
+            var i = Math.min(pages + start - range, Math.max(start, current - (range / 2 | 0)));
+            const end = i + range;
+            while (i < end) {
+                var infStatus = i === current ? true : false;
+                paging.push({ Page: i++, Status: infStatus });
+            };
+            return paging;
+        };
+        function ViewPersona(IdPersona, _EstadoModificar) {
+            $.getJSON('@Url.Action("GetObjUsuario", "Usuario")', { IdPersona }, (O) => {   
+                $('input[name *= NameRol]').prop('checked', false)
+                $('#EstadoUsuario').val(O.usuario.Estado.toString())
+                $("#IdPersona").val(O.usuario.Persona);
+                $('#TxtParametroPersona').val(O.Persona);
+                EstadoModificar = _EstadoModificar;
+                disabledHtml();
+                $('#TxtParametroPersona').prop('disabled', true);
+                $("#Contraseña").prop("disabled", true);
+                $("#Login").val(O.usuario.Login);
+                $("#Contraseña").val("*******");
+                if (_EstadoModificar) {
+                    $('#ActivatePassword').show();
+                } else {
+                    $('#ActivatePassword').hide();
+                    $("#Contraseña").prop("checked", false);
+                }
+                O.oPerfilUsuario.forEach((value, i) => {
+                    $('#Check_Rol_' + value).prop("checked", true);
+                });                
+            });
+        }
+        function BuscarPersona() {
+            var Obj = { TxtParametro: $('#TxtParametroPersona').val()};
+            $('#ListarPersona').empty();
+            $.getJSON('@Url.Action("BuscarPersonaUsuario", "Usuario")', Obj, (O) => {
+                if (O.length != 0) {
+                    O.forEach(value => {
+                        $('#ListarPersona').append("<a style='text-decoration:none' onclick='SeleccionarPersona(" + value.Id + ",\"" + value.Nombres + "\",\"" + value.Apaterno + "\",\"" + value.Amaterno + "\")' class='list-group-item' ><div style='display: inline-block'><i class='fa fa-user-o' style='margin-right: 5px'></i>" + value.Nombres + " " + value.Apaterno + " " + value.Amaterno + " " + value.DNI + "</div></a>");
+                    });
+                } else {
+                    toastr.warning('La persona ya tiene asignado un usuario');
+                }
+            });
+        }
+        function SeleccionarPersona(IdPersona, Nombres, Apaterno, Amaterno) {
+            $('#IdPersona').val(IdPersona);
+            $('#TxtParametroPersona').val(Nombres + ' ' + Apaterno + ' ' + Amaterno);
+            $('#ListarPersona').empty();
+        }
+        function ActiPassword() {
+            $("#Contraseña").prop("disabled", !JSON.parse($('#ActivarPassword').is(':checked')));
+            $('#ActivarPassword').is(':checked') ? $("#Contraseña").val("") : $("#Contraseña").val("******");
+        }
+        function Nuevo() {
+            EstadoModificar = true;
+            disabledHtml();
+            LimpiarDatos();
+        }
+        function Cancelar() {
+            EstadoModificar = false;
+            disabledHtml();
+            LimpiarDatos();
+        }
+        function disabledHtml() {
+            $("#EstadoUsuario").prop("disabled", !EstadoModificar);
+            $("#TxtParametroPersona").prop("disabled", !EstadoModificar);
+            $("#Login").prop("disabled", !EstadoModificar);
+            $("#Contraseña").prop("disabled", !EstadoModificar);
+            $("#ActivarPassword").prop("disabled", !EstadoModificar);
+            $("#Check_Rol_1").prop("disabled", !EstadoModificar);
+            $("#Check_Rol_2").prop("disabled", !EstadoModificar);
+            $("#Check_Rol_3").prop("disabled", !EstadoModificar);
+            $("#Check_Rol_4").prop("disabled", !EstadoModificar);
+            $("#BtnGuardar").prop("disabled", !EstadoModificar);
+        }
+        function LimpiarDatos() {
+            $("#EstadoUsuario").val("true");
+            $("#IdPersona").val(0);
+            $("#TxtParametroPersona").val("");
+            $("#TxtParametroPersona").val("");
+            $("#Login").val("");
+            $("#SContraseñaexo").val("");
+            $('input[name *= NameRol]').prop('checked', false);
+            ArrayRol.length = 0;
+        }
+        function Guardar() {
+            if ($('input[name="NameRol"]').is(':checked')) {
+                $("input[name=NameRol]:checked").each(function () {
+                    ArrayRol.push({ Id: $(this).val() });
+                });
+            } else {
+                toastr.warning('Debe seleccinar un Rol');
+            }
+
+            var Obj = {
+                Persona: $("#IdPersona").val(),
+                Login: $("#Login").val(),
+                Estado: JSON.parse($('#EstadoUsuario').val()),
+
+                CheckPw: JSON.parse($('#ActivarPassword').is(':checked')),
+                Pw: $("#Contraseña").val(),
+
+                Rol: ArrayRol
+            };            
+            $.ajax({
+                url: '@Url.Action("Guardar","Usuario")',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(Obj),
+                success: function (O) {                    
+                    if (O.responce) {
+                        Cancelar();
+                        ListarPersonas(1, 1);
+                    }
+                    MostarInfSave(O.StatusSave);
+                }
+            });
+        };
+    </script>
+}
+
+

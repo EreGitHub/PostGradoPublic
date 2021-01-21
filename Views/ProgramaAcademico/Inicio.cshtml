@@ -1,0 +1,484 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Programa Academico<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-3 m-1">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="input-group" style="margin-bottom:5px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="TxtBuscarPersona" placeholder="Buscar....">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <button type="button" onclick="AllProgramas(1,1)" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
+                </div>
+            </div>
+            <button type="button" onclick="NuevoProgramaAcademico()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Programa</button>
+
+            <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-cogs"></i> Lista programas creados</h4>
+            <div class="row" id="ProgramasHtml">
+                <div class='col-xl-3 col-sm-6 col-lg-4 col-12'>
+                    <div class='cardCarCustom card border-primary mb-3'>
+                        <div class='card-body' style='padding:0px'>
+                            <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>CURSOS DE ESPECIALIZACIÓN</h4>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Semi-Presencial</span><i class='far fa-bookmark'></i> Modalidad
+                            </li>
+                        </ul>
+                        <label class='text-center' style='margin:0 0 0 0'>Nombre del Programa</label>
+                        <div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>Azure Administrator Associate</div>
+                        <label class='text-center' style='margin:0px 0 0 0'>Objetivo</label>
+                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Objetivo Diplomado</div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>18/02/2021</span><i class='far fa-calendar-check'></i> Fecha registro
+                            </li>
+                        </ul>
+                        <div class='alert alert-primary text-center' style='margin:5px 0 0px 0;padding:0 0 0 0'>Activo</div>
+                        <button type='button' style='margin: 5px 0 0 0' onclick='ModificarProgramaAcademico()' class='btn btn-block btn-outline-primary btn-sm'><i class='fas fa-pen'></i> Modificar Programa</button>
+                        <hr style='margin:4px 0 0 0'>
+                        <div style='margin-top:5px' class='footer'>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <button type='button' onclick='Modulos()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-plus'></i> Modulos</button>
+                                </div>
+                                <div class='col-6'>
+                                    <button type='button' onclick='EliminarProgramaAcademico()' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i> Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="Inicio" style="width:100%;padding:17% 0 17% 0">
+                <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> SIN REGISTRO</h1>
+            </div>
+            <div class="text-center">
+                <ul class='pagination justify-content-end' id="PageVentaAnulacion"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_ProgramaAcademico" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloProgramaAcademico"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="IdPrograma" value="0" />
+                <label> Tipo PA:</label>
+                <select class="form-control" id="TipoPA">
+                    <option value="0">Selecionar</option>
+                </select>
+                <label> Nombre Programa:</label>
+                <input type="text" id="NombreProgramaAcademico" class="form-control" placeholder="Nombre" />
+                <label>Objetivo</label>
+                <textarea class="form-control" id="ObjetivoProgramaAcademico" placeholder="Objetivo" style="height:100px"></textarea>
+                <label>Modalidad:</label>
+                <select class="form-control" id="Modalidad">
+                    <option value="Presencial">Presencial</option>
+                    <option value="Virtual">Virtual</option>
+                    <option value="Semi-Presencia">Semi-Presencial</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
+                <button type="button" class="btn btn-outline-primary" onclick="GuardarProgramaAcademico()"><i class="fa fa-check-circle"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Modulos" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modulos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-10">
+                            <div class="input-group" style="margin-bottom:5px">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="TxtBuscarModulo" placeholder="Buscar....">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <button type="button" onclick="AllModulos()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
+                        </div>
+                    </div>*@
+                <button type="button" onclick="NuevoModulo()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Modulo</button>
+
+                <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-cogs"></i> Lista Modulos</h4>
+                <div class="row" id="ModulosHtml">
+                    <div class='col-xl-4 col-sm-6 col-lg-4 col-12'>
+                        <div class='cardCarCustom card border-primary mb-3'>
+                            <div class='card-body' style='padding:0px'>
+                                <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>Modulo III</h4>
+                            </div>
+                            <ul class='list-group list-group-flush'>
+                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>1</span><i class='fas fa-hashtag'></i> Numero
+                                </li>
+                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>50 min</span><i class='fas fa-business-time'></i> Duración
+                                </li>
+                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>1</span><i class='fas fa-hashtag'></i> Numero Credito
+                                </li>
+                            </ul>
+                            <label class='text-center' style='margin:0 0 0 0'>Contenido</label>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 8px 0;padding:0 0 0 0'>Contenido... Azure Administrator Associate modulo III</div>
+                            <button type='button' onclick='Contenidos()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Contenidos' class='btn btn-block btn-outline-secondary btn-sm'><i class='fa fa-plus'></i> Contenidos</button>
+                            <hr style='margin:4px 0 0 0'>
+                            <div style='margin-top:5px' class='footer'>
+                                <div class='row'>
+                                    <div class='col-6'>
+                                        <button type='button' onclick='ModificarModulo()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i></button>
+                                    </div>
+                                    <div class='col-6'>
+                                        <button type='button' onclick='EliminarProgramaAcademico()' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_ModulosCrud" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModuloCrud"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="IdModulo" value="0" />
+                <label>Numero</label>
+                <input type="number" id="NumeroModulo" class="form-control" placeholder="Numero" />
+                <label>Nombre Modulo</label>
+                <input type="text" id="NombreModulo" class="form-control" placeholder="Nombre Modulo" />
+                <label>Numero Credito</label>
+                <input type="number" id="NumeroCreditoModulo" class="form-control" placeholder="Numero Credito" />
+                <label>Duración en min</label>
+                <input type="number" id="DuracionEnMinModulo" class="form-control" placeholder="Numero Credito" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
+                <button type="button" class="btn btn-outline-primary" onclick="GuardarModulo()"><i class="fa fa-check-circle"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Contenido" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contenidos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button type="button" onclick="NuevoContenido()" style="margin-right:3px" class="btn mb-1 btn-block btn-primary"><i class="fa fa-plus"></i> Agragar Contenido</button>
+                <div class="containerCustom table-responsive">
+                    <table class='table table-striped table-bordered dataTable table-sm' style='font-size:12px;' id="tarqueo">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting" tabindex="0" aria-controls="tarqueo" rowspan="1" colspan="1" aria-label="Cantidad: activate to sort column ascending">Nombre</th>
+                                <th class="sorting" tabindex="0" aria-controls="tarqueo" rowspan="1" colspan="1" aria-label="Valor: activate to sort column descending" style="width: 1px;" aria-sort="ascending"></th>
+                                <th class="sorting" tabindex="0" aria-controls="tarqueo" rowspan="1" colspan="1" aria-label="Valor: activate to sort column descending" style="width: 1px;" aria-sort="ascending"></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_ContenidoCrud" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalContenidoCrud"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="IdContenido" value="0" />
+                <label>Contenido</label>
+                <textarea class="form-control" style="height:100px" id="NombreContenido" placeholder="Contenido"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
+                <button type="button" class="btn btn-outline-primary" onclick="GuardarContenido()"><i class="fa fa-check-circle"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#ProgramasHtml').hide();
+        $('#Inicio').show();
+        //window.setTimeout(function () {
+        AllTipoPA();
+        AllProgramas(1, 1);
+        //}, 100);
+        function AllTipoPA() {
+            $('#TipoPA').empty();
+            $('#TipoPA').append("<option value='0'>Seleccionar</option>");
+            $.getJSON('@Url.Action("All", "TipoPA")', (O) => {
+                O.forEach((value, i) => {
+                    $('#TipoPA').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                });
+            });
+        }
+        function AllProgramas(pageIndex, is) {
+            $.getJSON('@Url.Action("All", "ProgramaAcademico")', { SearchValue: $('#TxtBuscarPersona').val(), PageIndex: pageIndex }, (O) => {
+                if (O.Lst.length>0) {
+                    $('#ProgramasHtml').empty();
+                    $('#ProgramasHtml').show();
+                    $('#Inicio').hide();
+                }
+                var html = "";
+                O.Lst.forEach((value, i) => {
+                    html += "<div class='col-xl-3 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.TipoPA + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li></ul><label class='text-center' style='margin:0 0 0 0'>Nombre del Programa</label><div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>" + value.Programa + "</div><label class='text-center' style='margin:0px 0 0 0'>Objetivo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Objetivo + "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Fecha + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul><div class='alert alert-primary text-center' style='margin:5px 0 0px 0;padding:0 0 0 0'>Activo</div><button type='button' style='margin: 8px 0 0 0' onclick='ModificarProgramaAcademico(\"" + value.IdTipoPA + "\"," + value.Id + ",\"" + value.Programa + "\",\"" + value.Modalidad + "\")' class='btn btn-block btn-outline-primary btn-sm'><i class='fas fa-pen'></i> Modificar Programa</button><hr style='margin:4px 0 0 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' onclick='Modulos(" + value.Id + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-plus'></i> Modulos</button></div><div class='col-6'><button type='button' onclick='EliminarProgramaAcademico(" + value.Id +")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i> Eliminar</button></div></div></div></div></div>";
+                });
+                $('#ProgramasHtml').html(html);
+
+                var TotalPages = parseInt(O.TotalPages);
+                var rangeMin = 4;
+                var rangeMax = parseInt(TotalPages) == 1 ? 1 : rangeMin && parseInt(TotalPages) < rangeMin ? parseInt(TotalPages) : rangeMin;
+
+                const paging = { range: rangeMax, pages: TotalPages };
+                var PageArray = doPaging(pageIndex, paging);
+                var sTatusPrev = (pageIndex <= 1) ? true : false;
+                var sTatuslast = (pageIndex >= paging.pages) ? true : false;
+                var html = "<li class='page-item first " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllProgramas(1, " + TotalPages + ")'>First</a></li><li class='page-item prev  " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllProgramas(" + parseInt(pageIndex - 1) + ", " + TotalPages + ")'>Prev</a></li>";
+                PageArray.forEach((value, i) => {
+                    html += value.Status
+                        ?
+                        "<li class='page-item active'><a class='page-link' href='#' onclick='AllProgramas(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>"
+                        :
+                        "<li class='page-item'><a class='page-link' href='#' onclick='AllProgramas(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>";
+                });
+                html += "<li class='page-item next " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllProgramas(" + parseInt(pageIndex + 1) + ", " + TotalPages + ")'>Next</a></li><li class='page-item last " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllProgramas(" + paging.pages + ", " + TotalPages + ")'>Last</a></li>";
+                $('#PageVentaAnulacion').html(html);
+            });
+        }
+        function doPaging(current, { range, pages, start = 1 }) {
+            const paging = [];
+            var i = Math.min(pages + start - range, Math.max(start, current - (range / 2 | 0)));
+            const end = i + range;
+            while (i < end) {
+                var infStatus = i === current ? true : false;
+                paging.push({ Page: i++, Status: infStatus });
+            };
+            return paging;
+        }
+        function NuevoProgramaAcademico() {
+            NuevoProgramaAcademicoHtml();
+            $('#Modal_ProgramaAcademico').modal('show');
+            $('#TituloProgramaAcademico').html("Nuevo Programa");
+        }
+        function ModificarProgramaAcademico(TipoPA, IdPrograma, Nombre, Modalidad) {
+            $('#Modal_ProgramaAcademico').modal('show');
+            $('#TituloProgramaAcademico').html("Modificar Programa");
+            $('#TipoPA').val(TipoPA);
+            $('#IdPrograma').val(IdPrograma);
+            $('#NombreProgramaAcademico').val(Nombre);
+            $('#Modalidad').val(Modalidad);
+            $.getJSON('@Url.Action("Get", "ProgramaAcademico")', { IdPrograma }, (O) => {
+                $('#ObjetivoProgramaAcademico').val(O.Objetivo);
+            });  
+        }
+        function EliminarProgramaAcademico(IdPrograma) {
+            $.getJSON('@Url.Action("Eliminar", "ProgramaAcademico")', { IdPrograma }, (O) => {
+                if (O.responce) {
+                    AllProgramas(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function NuevoProgramaAcademicoHtml() {
+            $('#TipoPA').val(0);
+            $('#IdPrograma').val(0);
+            $('#NombreProgramaAcademico').val("")
+            $('#ObjetivoProgramaAcademico').val("")
+            $('#Modalidad').val("Presencial")
+        }
+        function GuardarProgramaAcademico() {
+            var Obj = {
+                Id: $('#IdPrograma').val(),
+                Nombre: $('#NombreProgramaAcademico').val(),
+                Objetivo: $('#ObjetivoProgramaAcademico').val(),
+                Modalidad: $('#Modalidad').val(),
+                TipoPA: $('#TipoPA').val(),
+            };
+            $.getJSON('@Url.Action("Guardar", "ProgramaAcademico")',Obj, (O) => {
+                if (O.responce) {
+                    $('#Modal_ProgramaAcademico').modal('hide');
+                    NuevoProgramaAcademicoHtml();
+                    AllProgramas(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+
+
+        function Modulos(IdPrograma) {
+            $('#IdPrograma').val(IdPrograma);
+            $('#Modal_Modulos').modal('show');
+            $.getJSON('@Url.Action("All", "Modulos")', { IdProgramaAcademico: IdPrograma }, (O) => {
+                var html = "";
+                O.forEach((value, i) => {
+                    html += "<div class='col-xl-4 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Nombre + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Numero + "</span><i class='fas fa-hashtag'></i> Numero</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.DuracionEnMin + "</span><i class='fas fa-business-time'></i> Duración</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.NumCredito + "</span > <i class='fas fa-hashtag'></i> Numero Credito</li ></ul><button type='button' onclick='Contenidos(" + value.Id + ")' style='margin-right:0px;margin:8px 0 0px 0' data-toggle='tooltip' data-placement='top' title='Agregar Contenidos' class='btn btn-block btn-outline-secondary btn-sm'><i class='fa fa-plus'></i> Contenidos</button><hr style='margin:4px 0 0 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' onclick='ModificarModulo(" + value.Id + "," + value.Numero + ",\"" + value.Nombre + "\"," + value.NumCredito + "," + value.DuracionEnMin + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i></button></div><div class='col-6'><button type='button' onclick='EliminarModulo(" + value.Id + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i></button></div></div></div></div></div>";
+                });
+                $('#ModulosHtml').html(html);
+            });
+        }
+        function NuevoModulo() {
+            $('#Modal_ModulosCrud').modal('show');
+            $('#TituloModuloCrud').html("Nuevo Modulo");
+            NuevoModuloHtml();
+        }
+        function ModificarModulo(IdModulo, Numero, Nombre, NumCredito, Duracion) {
+            $('#Modal_ModulosCrud').modal('show');
+            $('#TituloModuloCrud').html("Modificar Modulo");
+            $('#IdModulo').val(IdModulo);
+            $('#NumeroModulo').val(Numero);
+            $('#NombreModulo').val(Nombre);
+            $('#NumeroCreditoModulo').val(NumCredito);
+            $('#DuracionEnMinModulo').val(Duracion);
+        }
+        function EliminarModulo(IdModulo) {
+            $.getJSON('@Url.Action("Eliminar", "Modulos")', { IdModulo }, (O) => {
+                if (O.responce) {
+                    Modulos($('#IdPrograma').val());
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function NuevoModuloHtml() {
+            $('#IdModulo').val(0)
+            $('#NumeroModulo').val("")
+            $('#NombreModulo').val("")
+            $('#NumeroCreditoModulo').val("")
+            $('#DuracionEnMinModulo').val(0)
+        }
+        function GuardarModulo() {
+            var Obj = {
+                Id: $('#IdModulo').val(),
+                Numero: $('#NumeroModulo').val(),
+                Nombre: $('#NombreModulo').val(),
+                NumCredito: $('#NumeroCreditoModulo').val(),
+                DuracionEnMin: $('#DuracionEnMinModulo').val(),
+                ProgramaAcademico: $('#IdPrograma').val(),
+            };
+            $.getJSON('@Url.Action("Guardar", "Modulos")', Obj, (O) => {
+                if (O.responce) {
+                    $('#Modal_ModulosCrud').modal('hide');
+                    NuevoModuloHtml();
+                    Modulos($('#IdPrograma').val());
+                    //$('#IdPrograma').val(0)
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+
+
+        tabla = $('#tarqueo').DataTable({
+            "bPaginate": false, "bFilter": false, info: false, language: { zeroRecords: "Sin Registros" }
+        });
+        function Contenidos(IdModulo) {
+            $('#IdModulo').val(IdModulo);
+            $('#Modal_Contenido').modal('show');
+            $.getJSON('@Url.Action("All", "Contenido")', { IdModulo }, (O) => {
+                tabla.clear().draw();
+                for (var i = 0; i < O.length; i++) {
+                    fila = [O[i].Nombre, "<button onclick='ModificarContenido(" + O[i].Id + ")' style='float:right' class='btn btn-primary btn-sm'><span class='fas fa-pen'></span></button>", "<button onclick='EliminarContenido(" + O[i].Id + ")' style='float:right' class='btn btn-danger btn-sm'><span class='fas fa-times'></span></button>"];
+                    tabla.row.add(fila).draw(false);
+                }
+            });
+        }
+        function NuevoContenido() {
+            $('#Modal_ContenidoCrud').modal('show');
+            $('#TituloModalContenidoCrud').html("Nuevo registro");
+            NuevoContenidoHtml();
+        }
+        function NuevoContenidoHtml() {
+            $('#IdContenido').val(0);
+            $('#NombreContenido').val("");
+        }
+        function ModificarContenido(Id) {
+            $('#Modal_ContenidoCrud').modal('show');
+            $('#TituloModalContenidoCrud').html("Modificar registro");
+            $('#IdContenido').val(Id);
+            $.getJSON('@Url.Action("Get", "Contenido")', { Id }, (O) => {
+                $('#NombreContenido').val(O.Nombre);
+            });
+        }
+        function EliminarContenido(IdContenido) {
+            $.getJSON('@Url.Action("Eliminar", "Contenido")', { IdContenido }, (O) => {
+                if (O.responce) {
+                    Contenidos($('#IdModulo').val());
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function GuardarContenido() {
+            var Obj = {
+                Id: $('#IdContenido').val(),
+                Nombre: $('#NombreContenido').val(),
+                Modulos: $('#IdModulo').val(),
+            };
+            $.getJSON('@Url.Action("Guardar", "Contenido")', Obj, (O) => {
+                if (O.responce) {
+                    $('#Modal_ContenidoCrud').modal('hide');
+                    NuevoContenidoHtml();
+                    Contenidos($('#IdModulo').val());
+                    //$('#IdModulo').val(0);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+    </script>
+}
