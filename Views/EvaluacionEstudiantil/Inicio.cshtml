@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container mt-2">
+    <h4>Módulo Evaluación<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-3 m-1">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3" style="font-size:12px">
+                    <ul class="list-group" id="ofertas">
+                        <li class="list-group-item bg-secondary text-light text-center" style="margin-bottom:3px">Menú</li>
+
+                        <button id="Rpt1" style="margin-bottom:3px" class="list-group-item active" onclick="SeleccionarReporte('Rpt1','Calculo de Ganacias')">Criterios Verificación</button>
+                        <button id="Rpt2" style="margin-bottom:3px" class="list-group-item" onclick="SeleccionarReporte('Rpt2','Valor de inventario')">Evaluar</button>
+
+                    </ul>
+                </div>
+                <div class="col-sm-9">
+                    <div style="width:100%;padding:1% 0 20% 0">
+                        <h1 class="text-muted text-center" id="NombreReporte">MÓDULO DE REPORTES.</h1>
+                        <hr />
+                        <div id="CalculoGanacia" style="display:none">
+                            @*<h1 class="text-muted text-center">En Desarrollo... :(</h1>*@
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>Fecha Inicio:</label>
+                                    <input type="date" class="form-control" id="FechaInicioCalculoGanacia" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>Fecha Fin:</label>
+                                    <input type="date" class="form-control" id="FechaFinCalculoGanacia" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <button onclick="ImprimirReporteCalculoGanacias()" class="btn btn-outline-primary btn-lg btn-block" style="margin-top:10%;"> Procesar reporte</button>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

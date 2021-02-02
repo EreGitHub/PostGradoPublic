@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Feriados<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-0 m-0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-user"></i> Feriado</h4>
+                    <input type="hidden" id="IdFeriado" value="0" />
+                    <label>Fecha</label>
+                    <input type="date" class="form-control" placeholder="Dni" id="Fecha" />
+                    <label>Descripción</label>
+                    <textarea class="form-control" style="height:100px" id="Descripcion"></textarea>
+                    <hr style="margin-bottom:8px" />
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <button type="button" class="btn btn-outline-danger mb-1 btn-block" onclick="LimpiarCampos()"><i class="fas fa-broom"></i> Limpiar Campos</button>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <button type="button" class="btn btn-outline-success btn-block" onclick="Guardar()"><i class="fas fa-check"></i> Guardar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-bacon"></i> Feriados Programados</h4>
+                    <div class="containerCustom table-responsive">
+                        <table class='table table-hover table-sm' style='font-size:12px;'>
+                            <thead>
+                                <tr style="background-color:#17a2b8;border-color:#17a2b8;color:white">
+                                    <th width='1px'>Nº</th>
+                                    <th>Fecha</th>
+                                    <th>Descripcion</th>
+                                    <th width='1px'></th>
+                                    <th width='1px'></th>
+                                </tr>
+                            </thead>
+                            <tbody id="TableAsistencia"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        AllFeriados();
+        function AllFeriados() {
+            $.getJSON('@Url.Action("All", "Feriados")', (O) => {
+                var html = "";
+                $('#TableAsistencia').empty();
+                O.forEach((value, i) => {
+                    html += "<tr><td>" + (i + 1) + "</td><td>" + value.Fecha + "</td><td>" + value.Descripcion + "</td><td><button class='btn btn-outline-primary btn-sm' onclick='Modificar(" + value.Id + ")'><i class='fa fa-pen'></i></button></td><td><button class='btn btn-outline-danger btn-sm' onclick='Eliminar(" + value.Id + ")'><i class='fa fa-trash-alt'></i></button></td></tr>";
+                });
+                $('#TableAsistencia').append(html);
+            });
+        }
+        function Modificar(Id) {
+            $.getJSON('@Url.Action("Get", "Feriados")', { Id: Id }, (O) => {
+                $('#IdFeriado').val(O.Id);
+                $('#Fecha').val(O.Fecha);
+                $('#Descripcion').val(O.Descripcion);
+            });
+        }
+        function Eliminar(Id) {
+            $.getJSON('@Url.Action("Eliminar", "Feriados")', { Id }, (O) => {
+                if (O.responce) {
+                    AllFeriados();
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function LimpiarCampos() {
+            $('#IdFeriado').val(0);
+            $('#Fecha').val("");
+            $('#Descripcion').val("");
+        }
+        function Guardar() {
+            var Obj = {
+                Id: $('#IdFeriado').val(),
+                Fecha: $('#Fecha').val(),
+                Descripcion: $('#Descripcion').val(),
+            };
+            $.getJSON('@Url.Action("Guardar", "Feriados")', Obj, (O) => {
+                if (O.responce) {
+                    AllFeriados();
+                    LimpiarCampos();
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+    </script>
+}

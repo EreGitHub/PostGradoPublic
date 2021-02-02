@@ -1,0 +1,789 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Cronograma<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-3 m-1">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="input-group" style="margin-bottom:5px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="TxtBuscarCronograma" placeholder="Buscar....">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <button type="button" onclick="AllCronograma(1,1)" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
+                </div>
+            </div>
+            <button type="button" onclick="NuevoCronograma()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Nuevo Cronograma</button>            
+            <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-cogs"></i> Lista cronogramas creados</h4>
+            <style type="text/css">
+                .scrollEreCustom {
+                    height: 250px;
+                    width: 100%;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                    background-color: #FDFAFA;
+                }
+
+                    .scrollEreCustom::-webkit-scrollbar {
+                        width: 7px;
+                    }
+
+                    .scrollEreCustom::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.0);
+                        border-radius: 10px;
+                    }
+
+                    .scrollEreCustom::-webkit-scrollbar-thumb {
+                        border-radius: 10px;
+                        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.9);
+                    }
+            </style>
+            <div class="row" id="CrogramaHtml">
+
+
+                <div class='col-xl-3 col-sm-6 col-lg-4 col-12'>
+                    <div class='cardCarCustom card border-primary mb-3'>
+                        <div class='card-body' style='padding:0px'>
+                            <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>Azure Administrator Associate</h4>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>2020/06</span><i class='fas fa-layer-group'></i> Gestion
+                            </li>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>V1</span><i class='fas fa-code-branch'></i> Version
+                            </li>
+                        </ul>
+                        <label class='text-center' style='margin:0px 0 0 0'>Objetivo</label>
+                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Objetivo Diplomado</div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Semi-Presencial</span><i class='far fa-bookmark'></i> Modalidad
+                            </li>
+                        </ul>
+                        <button type='button' onclick='AgregarModuloGrupo()' style='margin-top:5px' data-toggle='tooltip' data-placement='top' title='Agregar modulo grupo' class='btn btn-block mb-1 btn-outline-success btn-sm'><i class='fa fa-plus-circle'></i> Agregar Grupo</button>
+                        <label class='text-center' style='margin:0px 0 0 0'>Modulos</label>
+                        <hr style='margin:0px 0 2px 0'>
+                        <div class='scrollEreCustom'>
+
+                            <tex class='form-control' style='border: 1px solid #dc3545; margin:8px 0 15px 0; height: auto'>
+                                <h5 class='card-title' style='text-align:center;margin-bottom:0px; color:#dc3545'>Modulo I</h5>
+                                <div class='row'>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label>
+                                        <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Grupo I</div>
+                                    </div>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label>
+                                        <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>B-23</div>
+                                    </div>
+                                </div>
+                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label>
+                                <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>26/01/2021-30/01/2021</div>
+                                <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Lunes, Miercoles, Viernes</div>
+                                <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>7:30am-8:30am</div>
+                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label>
+                                <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Pepe Rios Ortega</div>
+                                <div style='margin-top:5px' class='footer'>
+                                    <div class='row'>
+                                        <div class='col-6'>
+                                            <button type='button' onclick='Modulos()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Detalle Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button>
+                                        </div>
+                                        <div class='col-6'>
+                                            <button type='button' onclick='asd()' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Activar/Desactivar Cronograma' class='btn btn-block mb-1 btn-outline-secondary btn-sm'><i class='fa fa-circle'></i> Activar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tex>
+
+                            <tex class='form-control' style='border: 1px solid #007bff; margin:8px 0 15px 0; height: auto'>
+                                <h5 class='card-title' style='text-align:center;margin-bottom:0px; color:#007bff'>Modulo II</h5>
+                                <div class='row'>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label>
+                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Grupo II</div>
+                                    </div>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label>
+                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>C-12</div>
+                                    </div>
+                                </div>
+                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Configuración Calendario</label>
+                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Lunes, Viernes <br />Hras: 10:00am-12:30am</div>
+                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label>
+                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Marcelino pan vino</div>
+                                <div style='margin-top:5px' class='footer'>
+                                    <div class='row'>
+                                        <div class='col-6'>
+                                            <button type='button' onclick='Modulos()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Detalle Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button>
+                                        </div>
+                                        <div class='col-6'>
+                                            <button type='button' onclick='asd()' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Desactivar Cronograma' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-circle'></i> Desactivar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tex>
+
+                            <tex class='form-control' style='border: 1px solid #856404; margin:8px 0 15px 0; height: auto'>
+                                <h5 class='card-title text-center' style='margin-bottom:0px; color:black'>Modulo III</h5>
+                                <div class='row'>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label>
+                                        <div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Grupo III</div>
+                                    </div>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label>
+                                        <div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>C-12</div>
+                                    </div>
+                                </div>
+                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Configuración Calendario</label>
+                                <div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Lunes, Viernes <br />Hras: 10:00am-12:30am</div>
+                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label>
+                                <div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Marcelino pan vino</div>
+                                <div style='margin-top:5px' class='footer'>
+                                    <button type='button' onclick='Modulos()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Detalle Cronograma' class='btn btn-block mb-1 btn-outline-warning btn-sm'><i class='fa fa-cog'></i> Configurar</button>
+                                </div>
+                            </tex>
+
+                        </div>
+
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>18/02/2021</span><i class='far fa-calendar-check'></i> Fecha registro
+                            </li>
+                        </ul>
+                        <div style='margin-top:5px' class='footer'>
+                            <button type='button' onclick='Modulos()' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="Inicio" style="width:100%;padding:17% 0 17% 0">
+                <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> SIN REGISTRO</h1>
+            </div>
+            <div class="text-center">
+                <ul class='pagination justify-content-end' id="PageVentaAnulacion"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Cronograma" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloCronograma"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="IdCronograma" value="0" />
+                <label><i class="fas fa-layer-group" style="color:#0A1230"></i> Gestion:</label>
+                <input type="text" id="Gestion" class="form-control" placeholder="Gestion Cronograma" />
+                <label><i class="fas fa-code-branch" style="color:#0A1230"></i> Version del Cronograma:</label>
+                <input type="text" id="Version" class="form-control" placeholder="Versión cronograma" />
+                <label><i class="fas fa-cogs" style="color:#0A1230;"></i> Programa Academico:</label>
+                <select class="form-control" onchange="GetCronogramaAndModulos()" id="IdProgramaAcademico">
+                    <option value="0">Selecionar</option>
+                </select>
+                <label style="margin:0px 0 0 0"><i class="fa fa-user" style="color:#0A1230"></i> Programa Academico</label>
+                <text class="form-control text-center" style="margin-top:5px;height:auto;">
+                    <h4 class="text-muted text-center" id="MensajeSinSelecProgramaAcademico"><i class="fa fa-frown-o"></i> Seleccionar un Programa Academico</h4>
+                    <div id="detalleProgramaAcademico" style="display:none">
+                        <label style="margin:0 0 0 0">Nombre</label>
+                        <div class="alert alert-primary" style="margin:0px 0 0px 0;padding:3px" id="NombreProgrmaAcademico">Azure Security Engineer</div>
+                        <label style="margin:0 0 0 0">Tipo</label>
+                        <div class="alert alert-warning" style="margin:0px 0 0px 0;padding:3px" id="TipoPA">Semi-Presencial</div>
+                        <label style="margin:0 0 0 0">Modalidad</label>
+                        <div class="alert alert-danger" style="margin:0px 0 0px 0;padding:3px" id="ModalidadProgramaAcademico">Azure Security Engineer</div>
+                        <label style="margin:0 0 0 0">Objetivo</label>
+                        <div class="alert alert-warning" style="margin:0px 0 0px 0;padding:3px" id="ObjetivoProgramaAcademico">Azure Security Engineer</div>
+                    </div>
+                </text>
+                <label style="margin:3px 0 0 0"><i class="fa fa-calendar-day" style="color:#0A1230"></i> Modulos</label>
+                <div class="containerCustom table-responsive">
+                    <table class='table table-striped table-bordered dataTable table-sm' style='font-size:12px;' id="tmodulos">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting" tabindex="0" aria-controls="tmodulos" rowspan="1" colspan="1" aria-label="Cantidad: activate to sort column ascending">Nombre</th>
+                                <th class="sorting" tabindex="0" aria-controls="tmodulos" rowspan="1" colspan="1" aria-label="Valor: activate to sort column descending" style="width: 1px;" aria-sort="ascending"></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
+                <button type="button" class="btn btn-outline-primary" onclick="Guardar()"><i class="fa fa-check-circle"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Modulo" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" style="background-color: #FFFDFD">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class='fas fa-cogs'></i> Detalle Modulo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label style="margin:0 0 0 0">Numero</label>
+                <div class="alert alert-primary text-center" style="margin:0px 0 0px 0;padding:3px" id="NumeroModulo"></div>
+                <label style="margin:0 0 0 0">Nombre</label>
+                <div class="alert alert-warning text-center" style="margin:0px 0 0px 0;padding:3px" id="NombreModulo"></div>
+                <label style="margin:0 0 0 0">Numero de Credito</label>
+                <div class="alert alert-danger text-center" style="margin:0px 0 0px 0;padding:3px" id="NumCreditoModulo"></div>
+                <label style="margin:0 0 0 0">Duración</label>
+                <div class="alert alert-warning text-center" style="margin:0px 0 0px 0;padding:3px" id="DuracionModulo"></div>
+                <h4 class='form-section' style='margin-bottom:10px'><i class='fas fa-cogs'></i> Contenidos</h4>
+                <div id="ContenidosModulo">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_ConfigurarDetalleCronogama" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #FFFDFD">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class='fa fa-cog'></i> Detalle Cronograma</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="IdDetalleCronograma" value="0" />
+                <label>Modulo</label>
+                <select class="form-control" id="IdModulos">
+                </select>
+                <div class="row">
+                    <div class="col-6">
+                        <label><i class="fa fa-users" style="color:#0A1230"></i> Grupo:</label>
+                        <input type="text" id="Grupo" class="form-control" placeholder="Grupo" />
+                    </div>
+                    <div class="col-6">
+                        <label><i class="fas fa-home" style="color:#0A1230"></i> Ambiemte:</label>
+                        <select class="form-control" id="IdAmbiente">
+                        </select>
+                    </div>
+                </div>
+                <hr style="margin:8px 0 0 0" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><i class="fas fa-calendar-day"></i> Fecha Inicio</label>
+                        <input type="date" id="FechaInicio" class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label><i class="fas fa-calendar-day"></i> Fecha Fin</label>
+                        <input type="date" id="FechaFin" class="form-control" />
+                    </div>
+                </div>
+                <label><i class="fas fa-cloud-sun-rain"></i> Dias</label>
+                <text class="form-control" style="height:auto">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="Check_1" name="NameDias" value="1">
+                                <label class="custom-control-label" for="Check_1">1.- Lunes</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="Check_2" name="NameDias" value="2">
+                                <label class="custom-control-label" for="Check_2">2.- Martes</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="Check_3" name="NameDias" value="3">
+                                <label class="custom-control-label" for="Check_3">3.- Miercoles</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="Check_4" name="NameDias" value="4">
+                                <label class="custom-control-label" for="Check_4">4.- Jueves</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="Check_5" name="NameDias" value="5">
+                                <label class="custom-control-label" for="Check_5">5.- Viernes</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="Check_6" name="NameDias" value="6">
+                                <label class="custom-control-label" for="Check_6">6.- Sábado</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="Check_0" name="NameDias" value="0">
+                                <label class="custom-control-label" for="Check_0">7.- Domingo</label>
+                            </div>
+                        </div>
+                    </div>
+                </text>
+                <div class="row">
+                    <div class="col-6">
+                        <label><i class="fas fa-hourglass-start"></i> Hora Inicio</label>
+                        <input type="time" id="HorarioInicio" class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label><i class="fas fa-hourglass-end"></i> Hora Fin</label>
+                        <input type="time" id="HorarioFin" class="form-control" />
+                    </div>
+                </div>
+                <hr style="margin:8px 0 0 0" />
+                <label><i class="fa fa-user" style="color:#0A1230"></i> Docente:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="hidden" id="IdDocente" value="0" />
+                    <input type="text" class="form-control" onkeyup="BuscarPersonaDocente()" placeholder="Buscar por Ci, Nombre" id="NombreDocenteBuscar">
+                </div>
+                <div id="ListarPersonaDocente" style="position: absolute; z-index: 10; width: 95%" class="list-group"></div>
+                <label>Theme Color</label>
+                <select id="ThemeColor" class="form-control">
+                    <option value="">Default</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="black">Black</option>
+                    <option value="green">Green</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cerrar</button>
+                <button type="button" class="btn btn-outline-success" onclick="GuardarDetalleCronograma()"><i class="fa fa-check-circle"></i> Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Confictos" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="background-color: #FFFDFD">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Alerta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-muted text-center"><i class="fa fa-warning"></i> CONFLICTOS EN LAS FECHAS, CON OTROS PROGRAMAS A CADEMICOS</h4>
+                <hr style="margin:0 0 10px 0" />
+                <div class="row" style="margin-top:5px" id="ProgramasHtml">
+
+
+                    <div class='col-xl-4 col-sm-6 col-lg-4 col-12'>
+                        <div class='cardCarCustom card border-primary mb-0'>
+                            <div class='card-body' style='padding:0px'>
+                                <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>Azure Administrator Associate</h4>
+                            </div>
+                            <ul class='list-group list-group-flush'>
+                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Semi-Presencial</span><i class='far fa-bookmark'></i> Modalidad
+                                </li>
+                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>2020/06</span><i class='fas fa-layer-group'></i> Gestion
+                                </li>
+                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>V1</span><i class='fas fa-code-branch'></i> Version
+                                </li>
+                            </ul>
+                            <label class='text-center' style='margin:0px 0 0 0'>Tipo Programa</label>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Diplomado</div>
+
+                            <hr style='margin:0px 0 2px 0'>
+                            <tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'>
+                                <h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>Modulo I</h5>
+                                <div class='row'>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label>
+                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Grupo I</div>
+                                    </div>
+                                    <div class='col-6'>
+                                        <label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label>
+                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>B-23</div>
+                                    </div>
+                                </div>
+                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label>
+                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>26/01/2021-30/01/2021</div>
+                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Lunes, Miercoles, Viernes</div>
+                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>7:30am-8:30am</div>
+
+                            </tex>
+                            <label style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label>
+                            <div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Pepe Rios Ortega</div>
+                            <label style='margin:0px 0 0 0'><i class='fa fa-calendar-day'></i> Fechas Conficto</label>
+
+                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
+                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
+                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
+                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
+
+                            <ul class='list-group list-group-flush'>
+                                <li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'>
+                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>18/02/2021</span><i class='far fa-calendar-check'></i> Fecha registro
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#CrogramaHtml').hide();
+        $('#Inicio').show();
+        AllAmbiente();
+        AllProgramaAcademico();
+        AllCronograma(1, 1);
+        function AllAmbiente() {
+            $('#IdAmbiente').empty();
+            //$('#IdAmbiente').append("<option value='0'>Seleccionar Ambiente</option>");
+            $.getJSON('@Url.Action("Allmbiente", "Ambiente")', (O) => {
+                O.forEach((value, i) => {
+                    $('#IdAmbiente').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                });
+            });
+        }
+        function AllModulos(IdProgramaAcademico) {
+            $('#IdModulos').empty();
+            $('#IdModulos').append("<option value='0'>Seleccionar</option>");
+            $.getJSON('@Url.Action("All", "Modulos")', { IdProgramaAcademico }, (O) => {
+                O.forEach((value, i) => {
+                    $('#IdModulos').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                });
+            });
+        }
+        function AllProgramaAcademico() {
+            $('#IdProgramaAcademico').empty();
+            $('#IdProgramaAcademico').append("<option value='0'>Seleccionar</option>");
+            $.getJSON('@Url.Action("AllCrono", "ProgramaAcademico")', (O) => {
+                O.forEach((value, i) => {
+                    $('#IdProgramaAcademico').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                });
+            });
+        }
+        function AllCronograma(pageIndex, is) {
+            $.getJSON('@Url.Action("All", "Cronograma")', { SearchValue: $('#TxtBuscarCronograma').val(), PageIndex: pageIndex }, (O) => {
+                if (O.Lst.length > 0) {
+                    $('#CrogramaHtml').empty();
+                    $('#CrogramaHtml').show();
+                    $('#Inicio').hide();
+                }
+                var Danger = 'danger';
+                var ColorDanger = '#dc3545';
+                var Primary = 'primary';
+                var ColorPrimary = '#007bff';
+                var Warning = 'warning ';
+                var ColorWarning = '#856404';
+                var html = "";
+                var _Estado = "";
+                O.Lst.forEach((value, i) => {
+                    html += "<div class='col-xl-3 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.ProgramaAcademico + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul><label class='text-center' style='margin:0px 0 0 0'>Objetivo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Objetivo + "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li></ul><button type='button' onclick='AgregarModuloGrupo(" + value.IdCronograma+"," + value.IdProgramaAcademico+")' style='margin-top:5px' data-toggle='tooltip' data-placement='top' title='Agregar modulo grupo' class='btn btn-block mb-1 btn-outline-success btn-sm'><i class='fa fa-plus-circle'></i> Agregar Grupo Modulo</button><label class='text-center' style='margin:0px 0 0 0'>Modulos</label><hr style='margin:0px 0 2px 0'><div class='scrollEreCustom'>";
+                    value.DetalleCronograma.forEach((valueDetalle, i) => {
+                        if (valueDetalle.Dias == null || valueDetalle.IdAmbiente == 1 ||  valueDetalle.IdDocente == 1 || valueDetalle.Grupo == 'Sin Grupo' || valueDetalle.HorarioInicio == null || valueDetalle.HorarioFin == null || valueDetalle.IdDocente == 1) {
+                            _Estado = "Configurar"
+                            ColorCodigo = ColorWarning;
+                            ClassColor = Warning;
+                        } else {
+                            if (valueDetalle.Estado) {
+                                _Estado = "Activo";
+                                ColorCodigo = ColorPrimary;
+                                ClassColor = Primary;
+                            } else {
+                                _Estado = "Inactivo";
+                                ColorCodigo = ColorDanger;
+                                ClassColor = Danger;
+                            }
+                        }
+                        html += "<tex class='form-control' style='border: 1px solid " + ColorCodigo + ";margin: 8px 0 15px 0; height: auto'><h5 class='card-title' style='text-align: center; margin-bottom: 0px; color: " + ((_Estado == 'Configurar') ? "#000000" : ColorCodigo) + "'>" + valueDetalle.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin: 0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-" + ClassColor + " text-center' style='margin: 0px 0 5px 0; padding: 0 0 0 0'>" + valueDetalle.Grupo + "</div></div><div class='col-6'><label style='margin: 0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-" + ClassColor + " text-center' style='margin: 0px 0 5px 0; padding: 0 0 0 0'>" + valueDetalle.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-" + ClassColor + " text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + (((valueDetalle.FechaInicio == null) ? 'Sin Fecha Inicio' : valueDetalle.FechaInicio) + " -- " + ((valueDetalle.FechaFin == null) ? 'Sin Fecha Fin' : valueDetalle.FechaFin)) + "</div><div class='alert alert-" + ClassColor + " text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + ((valueDetalle.Dias == null) ? 'Sin Dias' : valueDetalle.Dias.split('|')[0]) + "</div><div class='alert alert-" + ClassColor + " text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + (((valueDetalle.HorarioInicio == null) ? 'Sin Horario Inicio' : valueDetalle.HorarioInicio) + " - " + ((valueDetalle.HorarioFin == null) ? 'Sin Horario Fin' : valueDetalle.HorarioFin)) + "</div><label class='text-center' style='margin: 0px 0 0 0'><i class='fa fa-user'></i> Docente</label><div class='alert alert-" + ClassColor + " text-center' style='margin: 0px 0 5px 0; padding: 0 0 0 0'>" + valueDetalle.Docente + "</div><div style='margin-top: 5px' class='footer'>";
+                        if (_Estado == 'Configurar') {
+                            html += "<button type='button' class='btn btn-block mb-1 btn-warning btn-sm' onclick='Configurar(" + value.IdCronograma + "," + valueDetalle.IdDetalleCronograma + "," + valueDetalle.IdModulo + ",\"" + valueDetalle.Grupo + "\"," + valueDetalle.IdAmbiente + "," + valueDetalle.FechaInicio + "," + valueDetalle.FechaFin + ",\"" + valueDetalle.Dias + "\",\"" + valueDetalle.HorarioInicio + "\",\"" + valueDetalle.HorarioFin + "\",\"" + valueDetalle.ThemeColor + "\"," + valueDetalle.IdDocente + ",\"" + valueDetalle.Docente + "\"," + value.IdProgramaAcademico + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Configurar Detalle Cronograma'><i class='fa fa-cog'></i> Configurar</button>";
+                        } else {
+                            html += "<div class='row'>";
+                            html += "<div class='col-6'><button type='button' onclick='Configurar(" + value.IdCronograma + "," + valueDetalle.IdDetalleCronograma + "," + valueDetalle.IdModulo + ",\"" + valueDetalle.Grupo + "\"," + valueDetalle.IdAmbiente + ",\"" + valueDetalle.FechaInicio + "\",\"" + valueDetalle.FechaFin + "\",\"" + valueDetalle.Dias + "\",\"" + valueDetalle.HorarioInicio + "\",\"" + valueDetalle.HorarioFin + "\",\"" + valueDetalle.ThemeColor + "\"," + valueDetalle.IdDocente + ",\"" + valueDetalle.Docente + "\"," + value.IdProgramaAcademico + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Detalle Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button></div><div class='col-6'><button type='button' onclick='ActivarDesactivarDetalleCronograma(" + valueDetalle.IdDetalleCronograma + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Activar/Desactivar Cronograma' class='btn btn-block mb-1 btn-outline-" + ((_Estado == "Activo") ? "danger" : "secondary") + " btn-sm'><i class='fa fa-circle'></i> " + ((_Estado == "Activo") ? "Desactivar" : "Activar") + "</button></div>";
+
+                            //if (_Estado == 'Activo') {
+
+                            //} else {
+                            //    html += "<div class='col-6'><button type='button' onclick='Configurar(" + value.IdCronograma + "," + valueDetalle.IdDetalleCronograma + "," + valueDetalle.IdModulo + ",\"" + valueDetalle.Grupo + "\"," + valueDetalle.IdAmbiente + ",\"" + valueDetalle.FechaInicio + "\",\"" + valueDetalle.FechaFin + "\",\"" + valueDetalle.Dias + "\",\"" + valueDetalle.HorarioInicio + "\",\"" + valueDetalle.HorarioFin + "\"," + valueDetalle.IdDocente + ",\"" + valueDetalle.Docente + "\"," + value.IdProgramaAcademico + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Detalle Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button></div><div class='col-6'><button type='button' onclick='ActivarDesactivarDetalleCronograma(" + valueDetalle.IdDetalleCronograma + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Activar/Desactivar Cronograma' class='btn btn-block mb-1 btn-outline-secondary btn-sm'><i class='fa fa-circle'></i> Activar</button></div>";
+                            //}
+                            html += "</div>";
+                        }
+                        html += "</div></tex>";
+                    });
+                    html += "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul><div style='margin-top:5px' class='footer'><button type='button' onclick='ModificarCronograma(" + value.IdCronograma + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button></div></div></div>";
+                });
+                $('#CrogramaHtml').html(html);
+
+                var TotalPages = parseInt(O.TotalPages);
+                var rangeMin = 4;
+                var rangeMax = parseInt(TotalPages) == 1 ? 1 : rangeMin && parseInt(TotalPages) < rangeMin ? parseInt(TotalPages) : rangeMin;
+
+                const paging = { range: rangeMax, pages: TotalPages };
+                var PageArray = doPaging(pageIndex, paging);
+                var sTatusPrev = (pageIndex <= 1) ? true : false;
+                var sTatuslast = (pageIndex >= paging.pages) ? true : false;
+                var html = "<li class='page-item first " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllCronograma(1, " + TotalPages + ")'>First</a></li><li class='page-item prev  " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllCronograma(" + parseInt(pageIndex - 1) + ", " + TotalPages + ")'>Prev</a></li>";
+                PageArray.forEach((value, i) => {
+                    html += value.Status
+                        ?
+                        "<li class='page-item active'><a class='page-link' href='#' onclick='AllCronograma(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>"
+                        :
+                        "<li class='page-item'><a class='page-link' href='#' onclick='AllCronograma(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>";
+                });
+                html += "<li class='page-item next " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllCronograma(" + parseInt(pageIndex + 1) + ", " + TotalPages + ")'>Next</a></li><li class='page-item last " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllCronograma(" + paging.pages + ", " + TotalPages + ")'>Last</a></li>";
+                $('#PageVentaAnulacion').html(html);
+            });
+        }
+        function doPaging(current, { range, pages, start = 1 }) {
+            const paging = [];
+            var i = Math.min(pages + start - range, Math.max(start, current - (range / 2 | 0)));
+            const end = i + range;
+            while (i < end) {
+                var infStatus = i === current ? true : false;
+                paging.push({ Page: i++, Status: infStatus });
+            };
+            return paging;
+        }
+        function NuevoCronograma() {
+            NuevoCronogramaHtml();
+            $('#Modal_Cronograma').modal('show');
+            $('#TituloCronograma').html("Nuevo Cronograma");
+        }
+        function NuevoCronogramaHtml() {
+            $('#IdCronograma').val(0);
+            $('#Gestion').val("");
+            $('#Version').val("");
+            $('#IdProgramaAcademico').val(0);
+            $('#MensajeSinSelecProgramaAcademico').show();
+            $('#detalleProgramaAcademico').hide();
+            tabla.clear().draw();
+        }
+        function NuevoDetalleCronogramaHtml() {
+            $('#IdCronograma').val(0);
+            $('#IdDetalleCronograma').val(0);
+            $('#IdModulos').val(0);
+            $('#Grupo').val("");
+            $('#IdAmbiente').val(1);
+            $('#FechaInicio').val("");
+            $('#FechaFin').val("");
+            $('#HorarioInicio').val("");
+            $('#HorarioFin').val("");
+            $('#IdDocente').val(0);
+            $('#NombreDocenteBuscar').val("");
+            $('input[name *= NameDias]').prop('checked', false);
+        }
+        function ModificarCronograma(IdCronograma) {
+            $('#IdCronograma').val(IdCronograma);
+            $('#Modal_Cronograma').modal('show');
+            $('#TituloCronograma').html("Modificar Cronograma");
+            $.getJSON('@Url.Action("Get", "Cronograma")', { IdCronograma }, (O) => {
+                $('#Gestion').val(O.Gestion);
+                $('#Version').val(O.Version);
+                $('#IdProgramaAcademico').val(O.ProgramaAcademico);
+                GetCronogramaAndModulos();
+            });
+        }
+        function Configurar(IdCronograma, IdDetalleCronograma, IdModulo, Grupo, IdAmbiente, FechaInicio, FechaFin, Dias, HoraInicio, HoraFin, ThemeColor, IdDocente, Docente, IdProgramaAcademico) {
+            $('#IdCronograma').val(IdCronograma);
+            $('#IdDetalleCronograma').val(IdDetalleCronograma);
+            $('#IdModulos').prop('disabled', true);
+            AllModulos(IdProgramaAcademico);
+            window.setTimeout(function () {
+                $('#IdModulos').val(IdModulo);
+            }, 100);
+            $('#Grupo').val(Grupo == "Sin Grupo" ? "" : Grupo);
+            $('#IdAmbiente').val(IdAmbiente);
+            $('#FechaInicio').val(FechaInicio);
+            $('#FechaFin').val(FechaFin);            
+            $('#ThemeColor').val(ThemeColor);
+            $('input[name *= NameDias]').prop('checked', false);
+            if (Dias != 'null') {
+                Dias.split('|')[1].split(',').forEach((value, i) => {
+                    $('#Check_' + value).prop("checked", true);
+                });
+            }
+            $('#HorarioInicio').val(HoraInicio);
+            $('#HorarioFin').val(HoraFin);
+            $('#IdDocente').val(Docente == "Sin Docente" ? 0 : IdDocente);
+            $('#NombreDocenteBuscar').val(Docente == "Sin Docente" ? "" : Docente);
+            $('#Modal_ConfigurarDetalleCronogama').modal('show');
+            //"<button onclick='ConfigurarCalendario(" + O.lstModulos[i].Id + ")' style='float:right' data-toggle='tooltip' data-placement='top' title='Configurar Calendario' class='btn btn-outline-primary btn-sm'><span class='fas fa-calendar-check'></span></button>"
+        }
+        function AgregarModuloGrupo(IdCronograma, IdProgramaAcademico) {
+            $('#IdModulos').prop('disabled', false);
+            NuevoDetalleCronogramaHtml();
+            $('#IdCronograma').val(IdCronograma);
+            $('#IdDetalleCronograma').val(IdDetalleCronograma);
+            AllModulos(IdProgramaAcademico);
+            $('#Modal_ConfigurarDetalleCronogama').modal('show');
+        }
+        tabla = $('#tmodulos').DataTable({
+            "bPaginate": false, "bFilter": false, info: false, language: { zeroRecords: "Sin Registros" }
+        });
+        function GetCronogramaAndModulos() {
+            var IdProgramaAcademico = $('#IdProgramaAcademico').val();
+            if (IdProgramaAcademico == 0 || IdProgramaAcademico == null) {
+                $('#MensajeSinSelecProgramaAcademico').show();
+                $('#detalleProgramaAcademico').hide();
+                tabla.clear().draw();
+                return;
+            } else {
+                $('#MensajeSinSelecProgramaAcademico').hide();
+                $('#detalleProgramaAcademico').show();
+            }
+            $.getJSON('@Url.Action("GetProgramaAcademicoAndModulo", "Cronograma")', { IdProgramaAcademico }, (O) => {
+                $('#TipoPA').val(O.ObjProgramaAcademico.TipoPA);
+                $('#NombreProgrmaAcademico').html(O.ObjProgramaAcademico.Programa);
+                $('#ObjetivoProgramaAcademico').html(O.ObjProgramaAcademico.Objetivo);
+                $('#ModalidadProgramaAcademico').html(O.ObjProgramaAcademico.Modalidad);
+                tabla.clear().draw();
+                for (var i = 0; i < O.lstModulos.length; i++) {
+                    fila = [O.lstModulos[i].Nombre, "<button onclick='DetalleModulo(" + O.lstModulos[i].Id + ")' style='float:right' data-toggle='tooltip' data-placement='top' title='Detalle modulo' class='btn btn-outline-secondary btn-sm'><span class='fas fa-eye'></span></button>"];
+                    tabla.row.add(fila).draw(false);
+                }
+            });
+        }
+        function DetalleModulo(IdModulo) {
+            $('#Modal_Modulo').modal('show');
+            $.getJSON('@Url.Action("Get", "Modulos")', { IdModulo }, (O) => {
+                $('#NumeroModulo').html(O.Numero);
+                $('#NombreModulo').html(O.Nombre);
+                $('#NumCreditoModulo').html(O.NumCredito);
+                $('#DuracionModulo').html(O.DuracionEnMin);
+            });
+            $.getJSON('@Url.Action("All", "Contenido")', { IdModulo }, (O) => {
+                var html = "";
+                O.forEach((value, i) => {
+                    html += "<div class='alert alert-primary' style='margin: 0px 0 5px 0; padding: 3px'>" + value.Nombre + "</div>";
+                });
+                $('#ContenidosModulo').html(html);
+            });
+        }
+        function BuscarPersonaDocente() {
+            $('#ListarPersonaDocente').html("");
+            var Obj = { TxtParametro: $('#NombreDocenteBuscar').val() };
+            $.getJSON('@Url.Action("SearchDocente", "DetalleCronograma")', Obj, (O) => {
+                if (O != null) {
+                    O.forEach(value => {
+                        $('#ListarPersonaDocente').append("<a style='text-decoration:none' onclick='SeleccionarPersonadocente(" + value.Id + ",\"" + value.Nombres + "\",\"" + value.Apaterno + "\",\"" + value.Amaterno + "\")' class='list-group-item' ><div style='display: inline-block'><i class='fa fa-user-o' style='margin-right: 5px'></i>" + value.Nombres + " " + value.Apaterno + " " + value.Amaterno + " " + value.DNI + "</div></a>");
+                    });
+                }
+            });
+        }
+        function SeleccionarPersonadocente(Id, Nombres, Apaterno, Amaterno) {
+            $('#IdDocente').val(Id);
+            $('#NombreDocenteBuscar').val(Nombres + " " + Apaterno + " " + Amaterno);
+            $('#ListarPersonaDocente').empty();
+        }
+        function Guardar() {
+            var Obj = {
+                Id: $('#IdCronograma').val(),
+                Gestion: $('#Gestion').val(),
+                Version: $('#Version').val(),
+                ProgramaAcademico: $('#IdProgramaAcademico').val()
+            };
+            $.getJSON('@Url.Action("Guardar", "Cronograma")',Obj, (O) => {
+                if (O.responce) {
+                    $('#Modal_Cronograma').modal('hide');
+                    NuevoCronogramaHtml();
+                    AllCronograma(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+
+        function ActivarDesactivarDetalleCronograma(IdDetalleCronograma) {
+            $.getJSON('@Url.Action("ActivarDesactivar", "DetalleCronograma")', { IdDetalleCronograma }, (O) => {
+                if (O.responce) {
+                    AllCronograma(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function GuardarDetalleCronograma() {
+            var Dias = "";
+            if ($('input[name="NameDias"]').is(':checked')) {
+                $("input[name=NameDias]:checked").each(function () {
+                    Dias += $(this).val() + ",";
+                });
+            } else {
+                toastr.warning('Debe seleccinar dias');
+            }
+            Dias = (Dias.charAt(Dias.length - 1) == ',') ? Dias.substring(0, Dias.length - 1) : Dias;
+            var obj = {
+                DetalleCronograma: {
+                    Id: $('#IdDetalleCronograma').val(),
+                    Modulos: $('#IdModulos').val(),
+                    Cronograma: $('#IdCronograma').val(),
+                    Ambiente: $('#IdAmbiente').val(),
+                    Persona: $('#IdDocente').val(),
+                    Grupo: $('#Grupo').val()
+                },
+                configuracionCalendario: {
+                    DetalleCronograma: $('#IdDetalleCronograma').val(),
+                    FechaInicio: $('#FechaInicio').val(),
+                    FechaFin: $('#FechaFin').val(),
+                    Dias: Dias,
+                    HorarioInicio: $('#HorarioInicio').val(),
+                    HorarioFin: $('#HorarioFin').val(),
+                    ThemeColor: $('#ThemeColor').val()
+                }
+            };
+            $.ajax({
+                url: '@Url.Action("Guardar", "DetalleCronograma")',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(obj),
+                success: function (O) {                   
+                    if (O.Progrmas.length > 0) {
+                        $('#Modal_Confictos').modal('show');
+                        var html = "";
+                        $('#ProgramasHtml').empty();
+                        O.Progrmas.forEach((value, i) => {
+                            html += "<div class='col-xl-4 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-0'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Programa + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li > <li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul ><label class='text-center' style='margin:0px 0 0 0'>Tipo Programa</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.TipoPA + "</div><hr style='margin:0px 0 2px 0'><tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'><h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>" + value.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Grupo + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.FechaCurso + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Dias + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Horario + "</div></tex><label style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label><div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Docente + "</div><label style='margin:0px 0 0 0'><i class='fa fa-calendar-day'></i> Fechas Conficto</label>";
+                            O.FechasProgramaCofict.forEach((valueFechas, i) => {
+                                if (value.IdDetalleCronograma == valueFechas.IdDetalleCronograma) {
+                                    html += "<div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> " + valueFechas.FechaCalendario + "</div>";
+                                }
+                            });
+                            html += "<ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaDetalleCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul></div></div>";
+                        });
+                        $('#ProgramasHtml').append(html);
+                    }
+                    if (O.responce) {
+                        $('#Modal_ConfigurarDetalleCronogama').modal('hide');
+                        NuevoDetalleCronogramaHtml();
+                        AllCronograma(1, 1);
+                    }
+                    MostarInfSave(O.StatusSave);
+                }
+            });
+        }
+    </script>
+}
+

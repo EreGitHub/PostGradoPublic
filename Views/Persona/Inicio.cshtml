@@ -41,10 +41,10 @@
                     <hr style="margin-bottom:2px" />
                     <div class="row" style="margin-top:8px">
                         <div class="col-6">
-                            <button type="button" class="btn btn-secondary btn-block" style="margin-bottom:10px" onclick="Cancelar()">Cancelar</button>
+                            <button type="button" class="btn btn-secondary btn-block" style="margin-bottom:10px" onclick="Cancelar()"><i class="fa fa-times-circle"></i> Cancelar</button>
                         </div>
                         <div class="col-6">
-                            <button type="button" disabled id="BtnGuardar" class="btn btn-success btn-block" style="margin-bottom:10px" onclick="Guardar()">Guardar</button>
+                            <button type="button" disabled id="BtnGuardar" class="btn btn-success btn-block" style="margin-bottom:10px" onclick="Guardar()"><i class="fa fa-check-circle"></i> Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,8 @@
         function ViewPersona(IdPersona, _EstadoModificar) {
             EstadoModificar = _EstadoModificar;
             disabledHtml();    
-            $.getJSON('@Url.Action("GetPersonaObj", "Persona")', { IdPersona: IdPersona }, function (O) {     
+            $.getJSON('@Url.Action("GetPersonaObj", "Persona")', { IdPersona: IdPersona }, function (O) {   
+                console.log(O)
                 $("#IdPersona").val(O.Id);
                 $("#DNI").val(O.DNI);
                 $("#Nombres").val(O.Nombres);

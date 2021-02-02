@@ -21,7 +21,7 @@
                     <button type="button" onclick="AllProgramas(1,1)" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
                 </div>
             </div>
-            <button type="button" onclick="NuevoProgramaAcademico()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Programa</button>
+            <button type="button" onclick="NuevoProgramaAcademico()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Programa</button>            
 
             <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-cogs"></i> Lista programas creados</h4>
             <div class="row" id="ProgramasHtml">
@@ -114,21 +114,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                @*<div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-10">
-                            <div class="input-group" style="margin-bottom:5px">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-                                </div>
-                                <input type="text" class="form-control" id="TxtBuscarModulo" placeholder="Buscar....">
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
-                            <button type="button" onclick="AllModulos()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
-                        </div>
-                    </div>*@
                 <button type="button" onclick="NuevoModulo()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Modulo</button>
-
                 <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-cogs"></i> Lista Modulos</h4>
                 <div class="row" id="ModulosHtml">
                     <div class='col-xl-4 col-sm-6 col-lg-4 col-12'>
@@ -328,7 +314,7 @@
             $('#Modalidad').val(Modalidad);
             $.getJSON('@Url.Action("Get", "ProgramaAcademico")', { IdPrograma }, (O) => {
                 $('#ObjetivoProgramaAcademico').val(O.Objetivo);
-            });  
+            });
         }
         function EliminarProgramaAcademico(IdPrograma) {
             $.getJSON('@Url.Action("Eliminar", "ProgramaAcademico")', { IdPrograma }, (O) => {
@@ -370,7 +356,7 @@
             $.getJSON('@Url.Action("All", "Modulos")', { IdProgramaAcademico: IdPrograma }, (O) => {
                 var html = "";
                 O.forEach((value, i) => {
-                    html += "<div class='col-xl-4 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Nombre + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Numero + "</span><i class='fas fa-hashtag'></i> Numero</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.DuracionEnMin + "</span><i class='fas fa-business-time'></i> Duración</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.NumCredito + "</span > <i class='fas fa-hashtag'></i> Numero Credito</li ></ul><button type='button' onclick='Contenidos(" + value.Id + ")' style='margin-right:0px;margin:8px 0 0px 0' data-toggle='tooltip' data-placement='top' title='Agregar Contenidos' class='btn btn-block btn-outline-secondary btn-sm'><i class='fa fa-plus'></i> Contenidos</button><hr style='margin:4px 0 0 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' onclick='ModificarModulo(" + value.Id + "," + value.Numero + ",\"" + value.Nombre + "\"," + value.NumCredito + "," + value.DuracionEnMin + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i></button></div><div class='col-6'><button type='button' onclick='EliminarModulo(" + value.Id + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i></button></div></div></div></div></div>";
+                    html += "<div class='col-xl-3 col-sm-4 col-lg-4 col-6'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Nombre + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Numero + "</span><i class='fas fa-hashtag'></i> Numero</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.NumCredito + "</span > <i class='fas fa-hashtag'></i> Numero Credito</li ></ul><button type='button' onclick='Contenidos(" + value.Id + ")' style='margin-right:0px;margin:8px 0 0px 0' data-toggle='tooltip' data-placement='top' title='Agregar Contenidos' class='btn btn-block btn-outline-secondary btn-sm'><i class='fa fa-plus'></i> Contenidos</button><hr style='margin:4px 0 0 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' onclick='ModificarModulo(" + value.Id + "," + value.Numero + ",\"" + value.Nombre + "\"," + value.NumCredito + "," + value.DuracionEnMin + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i></button></div><div class='col-6'><button type='button' onclick='EliminarModulo(" + value.Id + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i></button></div></div></div></div></div>";
                 });
                 $('#ModulosHtml').html(html);
             });

@@ -1,0 +1,615 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Docente<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-0 m-0">
+        <div class="card-body">
+            <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-user"></i> Lista Cursos Asignados</h4>
+            <div class="row" id="CursosHtml">
+                <div class='col-xl-6 col-sm-6 col-lg-6 col-12'>
+                    <div class='cardCarCustom card border-primary mb-0'>
+                        <div class='card-body' style='padding:0px'>
+                            <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>Azure Administrator Associate</h4>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Diplomado</span><i class='far fa-bookmark'></i> Tipo Programa
+                            </li>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>2020/06</span><i class='fas fa-layer-group'></i> Gestion
+                            </li>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>V1</span><i class='fas fa-code-branch'></i> Version
+                            </li>
+                        </ul>
+                        <label class='text-center' style='margin:0px 0 0 0'>Objetivo</label>
+                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Objetivo Diplomado</div>
+
+                        <hr style='margin:0px 0 2px 0'>
+                        <tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'>
+                            <h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>Modulo I</h5>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label>
+                                    <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Grupo I</div>
+                                </div>
+                                <div class='col-6'>
+                                    <label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label>
+                                    <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>B-23</div>
+                                </div>
+                            </div>
+                            <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>26/01/2021-30/01/2021</div>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Lunes, Miercoles, Viernes</div>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>7:30am-8:30am</div>
+                        </tex>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Semi-Presencial</span><i class='far fa-bookmark'></i> Modalidad
+                            </li>
+                        </ul>
+                        <div style='margin-top:5px' class='footer'>
+                            <button type='button' class='btn btn-outline-success btn-sm btn-block' onclick='ShowModalMenu()'><i class='far fa-clipboard'></i> Asitencia</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="Inicio" style="width:100%;padding:8% 0 8% 0">
+                <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> SIN REGISTRO</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Menu" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloCronograma">Módulo Evaluacion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3" style="font-size:12px">
+                        <ul class="list-group" id="ofertas">
+                            <li class="list-group-item bg-secondary text-light text-center" style="margin-bottom:3px">Menú Opción</li>
+                            <button id="CriterioVerificacion" style="margin-bottom:3px" class="list-group-item active" onclick="SeleccionarReporte('CriterioVerificacion')">Criterios Verificación</button>
+                            <button id="EvaluacionEstudiantil" style="margin-bottom:3px" class="list-group-item" onclick="SeleccionarReporte('EvaluacionEstudiantil')">Evaluación Estudiantil</button>
+                            <button id="Asistencia" style="margin-bottom:3px" class="list-group-item" onclick="SeleccionarReporte('Asistencia')">Asistencia</button>
+                            <button id="ReporteConsolodado" style="margin-bottom:3px" class="list-group-item" onclick="SeleccionarReporte('ReporteConsolodado')">Reporte Consolidado</button>
+                        </ul>
+                    </div>
+                    <div class="col-sm-9">
+
+                        <div id="CriterioVerificacionHtml">
+                            <hr style="margin:0 0 5px 0" />
+                            <h1 class="text-muted text-center" id="NombreReporte">CRITERIOS DE VERIFICACIÓN</h1>
+                            <hr style="margin:5px 0 8px 0" />
+                            <button type="button" onclick="NuevoCriterio()" class="btn btn-outline-primary btn-block" style="margin-bottom:10px"><i class="fa fa-plus"></i><span style="margin-left:5px">Nuevo Registro</span> </button>
+                            <div class="row" id="CriteriosHtml" style="display:none">
+                                <div class='col-xl-4 col-sm-12 col-lg-6 col-12'>
+                                    <div class='cardCarCustom card border-primary mb-0'>
+                                        <div class='card-body' style='padding:0px'>
+                                            <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'> Información Criterio</h4>
+                                        </div>
+                                        <hr style='margin:0px 0 2px 0'>
+                                        <label style='margin:0px 0 0 0'>Nombre Criterio</label>
+                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Objetivo Diplomado</div>
+
+                                        <label style='margin:0px 0 0 0'>Ponderación Criterio</label>
+                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>100</div>
+                                        <hr style='margin:0px 0 8px 0'>
+                                        <button type='button' class='btn btn-outline-success btn-sm mb-1 btn-block' onclick='AgregarNuevaActividad()'><i class='fa fa-plus'></i> Agregar Actividad</button>
+                                        <div class='containerCustom table-responsive'>
+                                            <table class='table table-hover table-sm' style='font-size:12px;'>
+                                                <thead>
+                                                    <tr style='background-color:#17a2b8;border-color:#17a2b8;color:white'>
+                                                        <th>Actividad</th>
+                                                        <th>Valor</th>
+                                                        <th width='1px'></th>
+                                                        <th width='1px'></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id='TableActividad'>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <hr style='margin:0px 0 2px 0'>
+
+                                        <div style='margin-top:5px' class='footer'>
+                                            <div class='row'>
+                                                <div class='col-6'>
+                                                    <button type='button' class='btn btn-outline-primary btn-sm btn-block' onclick='ModificarCriterio()'><i class='fa fa-pen'></i> Modificar</button>
+                                                </div>
+                                                <div class='col-6'>
+                                                    <button type='button' class='btn btn-outline-danger btn-sm btn-block' onclick='EliminarCriterio()'><i class='fa fa-trash-alt'></i> Eliminar</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="InicioListaCriterio" style="padding:10% 0 10% 0">
+                                <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> SIN REGISTRO</h1>
+                            </div>
+                        </div>
+                        <div id="EvaluacionEstudiantilHtml" style="display:none">
+                            <hr style="margin:0 0 5px 0" />
+                            <h1 class="text-muted text-center" id="NombreReporte">EVALUACIÓN ESTUDIANTIL</h1>
+                            <hr style="margin:5px 0 8px 0" />
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Criterios de Verificación</label>
+                                    <select id="IdCriterioVerificarEvaluar" style="margin-bottom:5px" onchange="ListarActiviades()" class="form-control">
+                                        <option value="0">Select Criterio</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label>Actividades</label>
+                                    <select class="form-control" onchange="ListaEstudianteEvaluar()" disabled id="IdActividadEvaluar">
+                                        <option value="0">Select Actividad</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <h4 class="form-section"><i class="fa fa-tasks"></i> Lista Estudiantes</h4>
+                            <div class="containerCustom table-responsive">
+                                <table class='table table-hover table-sm' style='font-size:12px;'>
+                                    <thead>
+                                        <tr style="background-color:#17a2b8;border-color:#17a2b8;color:white">
+                                            <th width='1px'>Nº</th>
+                                            <th>Nombre</th>
+                                            <th>Ap Paterno</th>
+                                            <th>Ap Materno</th>
+                                            <th>Ci</th>
+                                            <th width='63px'>Nota</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TableEstudiantesEvaluar"></tbody>
+                                </table>
+                            </div>
+                            <div id="OpGuardado">
+                                <!--
+                                   <div class="custom-control custom-checkbox" style="margin-bottom:10px">
+                                    <input type="checkbox" class="custom-control-input" id="Check_GuardadoDefinitivo" name="CheckDefinitoGuardado">
+                                    <label class="custom-control-label" for="Check_GuardadoDefinitivo">Habilitar para gurdado definitivo</label>
+                                </div>
+                                -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="button" class="btn btn-outline-secondary btn-block" style="display:none">r</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-block" style="margin-bottom:10px" onclick="CancelarEvaluacionEstudiantil()"><i class="fa fa-times"></i> Cancelar</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button" disabled id="btnReporteActividades" class="btn btn-outline-success btn-block" style="display:none" onclick="ImprimirReporteActividades()"><i class="fa fa-print"></i> Imprimir</button>
+                                        <button type="button" disabled id="btnGurdarNota" class="btn btn-outline-success btn-block" style="margin-bottom:10px" onclick="GuardarEvaluacionEstudiantil()"><i class="fa fa-check"></i> Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="AsistenciaHtml" style="display:none;">
+                            <hr style="margin:0 0 5px 0" />
+                            <h1 class="text-muted text-center" id="NombreReporte">ESTUDIANTES INSCRITOS</h1>
+                            <hr style="margin:5px 0 8px 0" />
+                            <input type="hidden" id="IdDetalleCronograma" value="0" />
+                            <div class="row" style="margin-bottom:5px">
+                                <div class="col-lg-10 col-md-10 col-sm-10">
+                                    <input type="date" style="margin-bottom:8px" class="form-control" id="Fecha" placeholder="Fecha" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <button type="button" onclick='AllEstudiantesAsistencia()' class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
+                                </div>
+                            </div>
+                            <div id="tEstudiantes" class="containerCustom table-responsive">
+                                <table class='table table-hover table-sm' style='font-size:12px;'>
+                                    <thead>
+                                        <tr style="background-color:#17a2b8;border-color:#17a2b8;color:white">
+                                            <th width='1px'>Nº</th>
+                                            <th>Estudiante</th>
+                                            <th>Ci</th>
+                                            <th>Sexo</th>
+                                            <th>Faltas</th>
+                                            <th width='75px'></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TableAsistencia">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="InicioListaEstudiantes" style="display:none;padding:10% 0 10% 0">
+                                <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> La fecha seleccionada no esta habilitada</h1>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Criterio" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" style="background-color: #FFFDFD">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloCriterio"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="IdCriterio" value="0" />
+                <label>Nombre Criterio</label>
+                <input type="text" class="form-control" id="CriNombre" placeholder="Nombre Criterio" />
+                <label>Ponderación</label>
+                <input type="number" class="form-control" value="0" id="CriPonderacion" placeholder="Ponderación" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
+                <button type="button" class="btn btn-outline-success" onclick="GuardarCriterio()"><i class="fa fa-check-circle"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Actividades" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloActividad"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="IdActividad" value="0" hidden="hidden">
+                <div class="form-group">
+                    <label>Nombre Actividad</label>
+                    <input type="text" class="form-control" id="ActNombre" placeholder="Descripción">
+                </div>
+                <div class="form-group">
+                    <label>Calificación</label>
+                    <input type="number" class="form-control" id="ActiCalificacion" value="0" placeholder="Calificación" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                <button type="button" class="btn btn-outline-success" onclick="GuardarActividad()"><i class="fa fa-check-circle"></i> Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+            $("#Fecha").val(today);
+        });
+        var ArrayEstudiantesEvaluar = [];
+        $('#CursosHtml').hide();
+        $('#Inicio').show();
+        AllAsignaciones();
+        function SeleccionarReporte(IdNombre) {
+            $(".list-group-item").removeClass('active');
+            $("#" + IdNombre).addClass('active');
+            //$('#NombreReporte').html(NombreReporte);
+            switch (IdNombre) {
+                case "CriterioVerificacion":
+                    $('#CriterioVerificacionHtml').show();
+                    $('#EvaluacionEstudiantilHtml').hide();
+                    $('#AsistenciaHtml').hide();
+                    break;
+                case "EvaluacionEstudiantil":
+                    $('#CriterioVerificacionHtml').hide();
+                    $('#EvaluacionEstudiantilHtml').show();
+                    $('#AsistenciaHtml').hide();
+                    break;
+                case "Asistencia":
+                    $('#CriterioVerificacionHtml').hide();
+                    $('#EvaluacionEstudiantilHtml').hide();
+                    $('#AsistenciaHtml').show();
+                    break;
+                case "ReporteConsolodado":
+                    var url = '@Url.Action("ReporteConsolidado", "Reportes")' + '?Tipo=PDF&IdDetelleCronograma=' + $('#IdDetalleCronograma').val();
+                    window.open(url);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        /*--------------------------- Asignaciones ---------------------------*/
+        function AllAsignaciones() {
+            $('#CursosHtml').html('');
+            $.getJSON('@Url.Action("AllAsignacionDocente", "Docente")', function (O) {
+                if (O.length > 0) {
+                    $('#CursosHtml').empty();
+                    $('#CursosHtml').show();
+                    $('#Inicio').hide();
+                }
+                console.log(O);
+                var Html = "";
+                O.forEach((value, i) => {
+                    Html += "<div class='col-xl-3 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-0'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Programa + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.TipoPA + "</span><i class='far fa-bookmark'></i> Tipo Programa</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul><label class='text-center' style='margin:0px 0 0 0'>Objetivo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Objetivo + "</div><hr style='margin:0px 0 2px 0'><tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'><h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>" + value.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Grupo + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.FechaCurso + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Dias + "</div><div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>" + value.Horario + "</div></tex><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li></ul><div style='margin-top:5px' class='footer'><button type='button' class='btn btn-outline-success btn-sm btn-block' onclick='ShowModalMenu(" + value.IdDetalleCronograma + ")'><i class='far fa-clipboard'></i> </button></div></div></div>";
+                });
+                $('#CursosHtml').append(Html);
+            });
+        }
+        function ShowModalMenu(IdDetalleCronograma) {
+            $('#Modal_Menu').modal();
+            $('#IdDetalleCronograma').val(IdDetalleCronograma);
+            AllCriterios();
+            AllEstudiantesAsistencia();
+            ListarActiviades();
+            ListaEstudianteEvaluar();
+            //$('#btnGurdarNota').prop("disabled", false);
+            //$('#btnGurdarNota').prop("disabled", false);
+            //$("#TableEstudiantesEvaluar").empty();
+            //$('#IdActividad').empty();
+            //$('#IdActividad').prop('disabled', false);
+        }
+
+
+        /*--------------------------- Asistencia ---------------------------*/
+        function AllEstudiantesAsistencia() {
+            $('#TableAsistencia').empty();
+            $.getJSON('@Url.Action("AllEstudiantesAsistencia","Asistencia")', { IdDetalleCronograma: $('#IdDetalleCronograma').val(), Fecha: $('#Fecha').val() }, function (O) {
+                if (O.state != false) {
+                    if (O.Lst.length == 0) {
+                        $('#InicioListaEstudiantes').show();
+                        $('#InicioListaEstudiantes').html("<h1 class='text-muted text-center'><i class='fa fa-frown-o'></i> No existe estudiantes inscritos</h1>");
+                        $('#tEstudiantes').hide();
+                        return;
+                    }
+                    $('#InicioListaEstudiantes').hide();
+                    $('#tEstudiantes').show();
+                    O.Lst.forEach((value, i) => {
+                        $('#TableAsistencia').append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + " " + value.Apaterno + " " + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Sexo == 'M') ? "Masculino" : "Femenino") + "</td><td>" + value.Faltas + "</td><td><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'P' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'P') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>P</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'F' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'F') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>F</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'L' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'L') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "'>L</button></td></tr>");
+                    });
+                } else {
+                    $('#InicioListaEstudiantes').show();
+                    $('#InicioListaEstudiantes').html("<h1 class='text-muted text-center'><i class='fa fa-frown-o'></i> La fecha seleccionada no esta habilitada</h1>");
+                    $('#tEstudiantes').hide();
+                }
+            });
+        }
+        function GuardarAsistencia(IdAsistencia, IdCalendario, ValorAsistencia, IdInscripcion) {
+            var Obj = {
+                Id: IdAsistencia,
+                Fecha: $('#Fecha').val(),
+                ValorAsistencia: ValorAsistencia,
+                Inscripcion: IdInscripcion,
+                Calendario: IdCalendario
+            };
+            $.ajax({
+                url: '@Url.Action("Guardar","Asistencia")',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(Obj),
+                success: function (O) {
+                    if (O.responce) {
+                        AllEstudiantesAsistencia();
+                    }
+                    MostarInfSave(O.StatusSave);
+                }
+            });
+        }
+
+
+        /*--------------------------- CRITERIOS ---------------------------*/
+        function AllCriterios() {
+            $('#CriteriosHtml').empty();
+            $('#CriteriosHtml').hide();
+            $('#InicioListaCriterio').show();
+            $('#IdCriterioVerificarEvaluar').empty();
+            $('#IdCriterioVerificarEvaluar').append("<option value='0'>Seleccione un riterio</option>");
+            $.getJSON('@Url.Action("All", "Criterio")', { IdDetalleCronograma: $('#IdDetalleCronograma').val() }, (O) => {
+                if (O.length > 0) {
+                    $('#CriteriosHtml').show();
+                    $('#InicioListaCriterio').hide();
+                }
+                var Html = "";
+                O.forEach((value, i) => {
+                    $('#IdCriterioVerificarEvaluar').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                    Html += "<div class='col-xl-4 col-sm-12 col-lg-6 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'> Información Criterio</h4></div><hr style='margin:0px 0 2px 0'><label style='margin:0px 0 0 0'>Nombre Criterio</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Nombre + "</div><label style='margin:0px 0 0 0'>Ponderación Criterio</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ponderacion + "</div><hr style='margin:0px 0 8px 0'><button type='button' class='btn btn-outline-success btn-sm mb-1 btn-block' onclick='AgregarNuevaActividad(" + value.Id + ")'><i class='fa fa-plus'></i> Agregar Actividad</button><div class='containerCustom table-responsive'><table class='table table-hover table-sm' style='font-size:12px;'><thead><tr style='background-color:#17a2b8;border-color:#17a2b8;color:white'><th>Actividad</th><th>Valor</th><th width='1px'></th><th width='1px'></th></tr></thead><tbody>";
+                    value.Actividades.forEach((valueActividad, i) => {
+                        Html += "<tr><td>" + valueActividad.Nombre + "</td><td>" + valueActividad.Calificacion + "</td><td><button type='button' class='btn btn-outline-primary btn-sm' onclick='ModificarActividad(" + valueActividad.Id + ",\"" + valueActividad.Nombre + "\",\"" + valueActividad.Calificacion + "\"," + value.Id + ")'><i class='fa fa-pen'></i></button></td><td><button type='button' class='btn btn-outline-danger btn-sm' onclick='EliminarActividad(" + valueActividad.Id + ")'><i class='fa fa-trash'></i></button></td></tr>";
+                    });
+                    Html += "</tbody></table></div><hr style='margin:0px 0 2px 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' class='btn btn-outline-primary btn-sm btn-block' onclick='ModificarCriterio(" + value.Id + ",\"" + value.Nombre + "\",\"" + value.Ponderacion + "\")'><i class='fa fa-pen'></i> Modificar</button></div><div class='col-6'><button type='button' class='btn btn-outline-danger btn-sm btn-block' onclick='EliminarCriterio(" + value.Id + ")'><i class='fa fa-trash-alt'></i> Eliminar</button></div></div></div></div></div>";
+                });
+                $('#CriteriosHtml').append(Html);
+            });
+        }
+        function NuevoCriterio() {
+            $('#Modal_Criterio').modal();
+            $('#TituloCriterio').html("Nuevo Criterio");
+            $('#IdCriterio').val(0);
+            $('#CriNombre').val("");
+            $('#CriPonderacion').val("");
+        }
+        function ModificarCriterio(IdCriterio, Nombre, Ponderacion) {
+            $('#Modal_Criterio').modal();
+            $('#TituloCriterio').html("Modificar Criterio");
+            $('#IdCriterio').val(IdCriterio);
+            $('#CriNombre').val(Nombre);
+            $('#CriPonderacion').val(Ponderacion);
+        }
+        function EliminarCriterio(IdCriterio) {
+            $.getJSON('@Url.Action("Eliminar", "Criterio")', { IdCriterio }, (O) => {
+                if (O.responce) {
+                    AllCriterios();
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function GuardarCriterio() {
+            var Obj = {
+                Id: $('#IdCriterio').val(),
+                Nombre: $('#CriNombre').val(),
+                Ponderacion: $('#CriPonderacion').val(),
+                DetalleCronograma: $('#IdDetalleCronograma').val()
+            };
+            $.getJSON('@Url.Action("Guardar", "Criterio")', Obj, (O) => {
+                if (O.responce) {
+                    AllCriterios();
+                    $('#Modal_Criterio').modal('hide');
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+
+
+        /*------------------ ACTIVIDAD---------------------------*/
+        function AgregarNuevaActividad(IdCriterioVerificacion) {
+            $('#IdCriterio').val(IdCriterioVerificacion);
+            $('#Modal_Actividades').modal('show');
+            $('#TituloActividad').html("Nueva Actividad");
+            $('#IdActividad').val(0);
+            $('#ActNombre').val("");
+            $('#ActiCalificacion').val("");
+        }
+        function ModificarActividad(IdActividad, Nombre, Calificacion, IdCriterioVerificacion) {
+            $('#IdCriterio').val(IdCriterioVerificacion);
+            $('#Modal_Actividades').modal('show');
+            $('#TituloActividad').html("Modificar Actividad");
+            $('#IdActividad').val(IdActividad);
+            $('#ActNombre').val(Nombre);
+            $('#ActiCalificacion').val(Calificacion);
+        }
+        function EliminarActividad(IdActividad) {
+            $.getJSON('@Url.Action("Eliminar", "Actividades")', { IdActividad }, (O) => {
+                if (O.responce) {
+                    AllCriterios();
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+        function GuardarActividad() {
+            var Obj = {
+                Id: $('#IdActividad').val(),
+                Nombre: $('#ActNombre').val(),
+                Calificacion: $('#ActiCalificacion').val(),
+                CriteriosVerificacion: $('#IdCriterio').val()
+            };
+            $.getJSON('@Url.Action("Guardar", "Actividades")', Obj, (O) => {
+                if (O.responce) {
+                    AllCriterios();
+                    $('#Modal_Actividades').modal('hide');
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }
+
+
+        /*------------------ Evaluación Estudiantil ---------------------------*/
+        function ListarActiviades() {
+            $('#IdActividadEvaluar').empty();
+            $('#IdActividadEvaluar').prop("disabled", false);
+            $('#IdActividadEvaluar').append("<option value='0'>Selecciones una actividad</option>");
+            $.getJSON('@Url.Action("Get", "Actividades")', { IdCriterioVerificacion: $('#IdCriterioVerificarEvaluar').val() }, (O) => {
+                O.forEach((value, i) => {
+                    $('#IdActividadEvaluar').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                });
+            });
+        }
+        function ListaEstudianteEvaluar() {
+            $('#btnGurdarNota').prop("disabled", true);
+            $("#TableEstudiantesEvaluar").empty();
+            if ($('#IdActividadEvaluar').val() != 0) {
+                var Obj = {
+                    IdActividad: $('#IdActividadEvaluar').val(),
+                    IdDetalleCronograma: $('#IdDetalleCronograma').val(),
+                };
+                $.getJSON('@Url.Action("AllEstudiantes","Evaluacion")', Obj, (O) => {
+                    ArrayEstudiantesEvaluar = O;
+                    console.log(O)
+                    //$('#Check_GuardadoDefinitivo').prop('checked', true);
+                    //Check_GuardadoDefinitivo
+                    //CheckDefinitoGuardado name
+                    //EstadoGuardado
+                    //$('#OpGuardado').show();
+                    //$('#BtnGuardarImprimirReporte').hide();
+                    //if (O.EstadoGuardado =="GuardadoDefinitivo") {
+                    //    $('#OpGuardado').hide();
+                    //    $('#BtnGuardarImprimirReporte').show();
+                    //}
+                    if (O.length != 0) {
+                        $('#btnGurdarNota').prop("disabled", false);
+                    }
+                    ArrayEstudiantesEvaluar.forEach((value, i) => {
+                        if (value.IdEvaluacion == 0) {
+                            $('#btnGurdarNota').show();
+                            $('#btnReporteActividades').hide();
+                        }else {
+                            $('#btnReporteActividades').show();
+                            $('#btnGurdarNota').hide();
+                            $('#btnReporteActividades').prop("disabled", false);
+                        }
+                        $("#TableEstudiantesEvaluar").append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td><input type='number' " + ((value.IdEvaluacion != 0) ? "disabled" : "") + " class='form-control' id='Nota" + value.IdInscripcion + "' value='" + value.Valor + "' /></td></tr>");
+                    });
+                });
+            }
+        }
+        function CancelarEvaluacionEstudiantil() {
+            $('#btnGurdarNota').prop("disabled", true);
+            ArrayEstudiantesEvaluar.length = 0;
+            $("#TableEstudiantesEvaluar").html("");
+            ArrayEstudiantesEvaluar.forEach((value, i) => {
+                //("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td><input type='number' " + ((O.IdEvaluacion != 0) ? "disabled" : "") + " class='form-control' id='Nota" + value.IdInscripcion + "' value='" + value.Valor + "' /></td></tr>");
+            });
+            $('#IdActividadEvaluar').prop("disabled", true);
+            $('#IdActividadEvaluar').val(0)
+        }
+        function GuardarEvaluacionEstudiantil() {
+            ArrayEstudiantesEvaluar.forEach((value, i) => {
+                ArrayEstudiantesEvaluar[i].Valor = $('#Nota' + value.IdInscripcion).val();
+            });
+            var Obj = {
+                LstEstudiantesEvaluar: ArrayEstudiantesEvaluar,
+                IdActividad: $('#IdActividadEvaluar').val(),
+                //EstadoGuardadoDefinitivo: $('input[name="CheckDefinitoGuardado"]').is(':checked')
+                //$('input:radio[name=CheckDefinitoGuardado]:checked').val()
+            };
+            $.ajax({
+                url: '@Url.Action("Guardar","Evaluacion")',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(Obj),
+                success: function (O) {
+                    if (O.responce) {
+                        ListaEstudianteEvaluar();
+                        $('#btnGurdarNota').prop("disabled", true);
+                        //$('#IdPeriodo').val(0);
+                        //Desbloquear();
+                        //$('#Check_GuardadoDefinitivo').prop('checked', false);
+                    }
+                    MostarInfSave(O.StatusSave);
+                }
+            });
+        }
+        function ImprimirReporteActividades() {
+            var url = '@Url.Action("ReporteNotaActividadEstudiante", "Reportes")' + '?Tipo=PDF&IdActividad=' + $('#IdActividadEvaluar').val();
+            window.open(url);
+        }
+    </script>
+}

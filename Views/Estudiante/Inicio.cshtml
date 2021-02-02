@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Estudiante<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-0 m-0">
+        <div class="card-body">
+            <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-user"></i> Lista Cursos Asignados</h4>
+            <button type='button' class='btn btn-outline-info mb-1' data-toggle='modal' data-target='#Modal_Calendario'><i class='far fa-calendar-alt'></i> Calendario</button>
+            <div class="row" id="CursosHistoricoHtml">
+                <div class='col-xl-3 col-sm-6 col-lg-6 col-12'>
+                    <div class='cardCarCustom card border-primary mb-0'>
+                        <div class='card-body' style='padding:0px'>
+                            <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>Azure Administrator Associate</h4>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Diplomado</span><i class='far fa-bookmark'></i> Tipo Programa
+                            </li>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>2020/06</span><i class='fas fa-layer-group'></i> Gestion
+                            </li>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>V1</span><i class='fas fa-code-branch'></i> Version
+                            </li>
+                        </ul>
+                        <label class='text-center' style='margin:0px 0 0 0'>Objetivo</label>
+                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Objetivo Diplomado</div>
+                        <label class='text-center' style='margin:0px 0 0 0'>Estado del Curso</label>
+                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Cerrado</div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Semi-Presencial</span><i class='far fa-bookmark'></i> Modalidad
+                            </li>
+                        </ul>
+                        <hr style='margin:0px 0 2px 0'>
+                        <tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'>
+                            <h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>Modulo I</h5>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label>
+                                    <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Grupo I</div>
+                                </div>
+                                <div class='col-6'>
+                                    <label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label>
+                                    <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>B-23</div>
+                                </div>
+                            </div>
+                            <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>26/01/2021-30/01/2021</div>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Lunes, Miercoles, Viernes</div>
+                            <div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>7:30am-8:30am</div>
+                        </tex>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
+                                <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Pepe rios ortega</span><i class='fa fa-user'></i> Docente
+                            </li>
+                        </ul>
+                        <div style='margin-top:5px' class='footer'>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <button type='button' class='btn btn-outline-primary btn-sm btn-block' data-toggle='modal' data-target='#Modal_Calendario'><i class='far fa-calendar-alt'></i> Calendario</button>
+                                </div>
+                                <div class='col-6'>
+                                    <button type='button' class='btn btn-outline-success btn-sm btn-block' onclick='Faltas()'><i class='far fa-clipboard'></i> Faltas</button>
+                                </div>
+                            </div>
+                            <button type='button' style='margin-top:5px' class='btn btn-outline-success btn-sm btn-block' onclick='Notas()'><i class='fas fa-book-open'></i> Notas</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <ul class='pagination justify-content-end' id="PageHistorico"></ul>
+            </div>
+            <div id="Inicio" style="width:100%;padding:8% 0 8% 0">
+                <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> SIN REGISTRO</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Calendario" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloCronograma">Módulo Evaluacion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="calendarioEstudiante"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Faltas" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Faltas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="containerCustom table-responsive">
+                    <table class='table table-hover table-sm' style='font-size:12px;'>
+                        <thead>
+                            <tr style="background-color:#17a2b8;border-color:#17a2b8;color:white">
+                                <th width='1px'>Nº</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TableFaltas"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_Notas" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="notasHtml">
+
+                    <text class='form-control' style='margin-top:5px;height:auto;'>
+                        <h4 class='text-muted'>Criterio: <label style='margin:0 0 0 0'> Actividad Academica</label></h4>
+                        <hr style='margin:0 0 0 0' />
+                        <div class='row'>
+                            <div class='col-6'>
+                                <label style='margin:0px 0 0 0'>Actividad</label>
+                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>sdfd sd f ffsdfsd sdgsdfh sdfgsds Evaluacion Lectura</div>
+                            </div>
+                            <div class='col-6'>
+                                <label style='margin:0px 0 0 0'>Nota</label>
+                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>80</div>
+                            </div>
+                        </div>
+                        <hr style='margin:0 0 0 0' />
+                    </text>
+                </div>
+
+                <text class="form-control text-center" style="margin-top:5px;height:auto;">
+                    <h4 class="text-muted text-center" id="MensajeSinSelecProgramaAcademico"><i class="fa fa-frown-o"></i> Promedio: <span style="font-size:20px" id="Promedio"></span></h4>
+                </text>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetCalendario", "Estudiante")',
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.EventID,
+                                title: v.Title,
+                                description: v.Description,
+                                start: moment(v.Start),
+                                end: v.End != null ? moment(v.End) : null,
+                                color: v.Color,
+                                allDay: v.AllDay
+                            });
+                        })
+
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+            }
+
+            function GenerateCalender(events) {
+                $('#calendarioEstudiante').fullCalendar('destroy');
+                $('#calendarioEstudiante').fullCalendar({
+                    defaultView: 'agendaDay',
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events
+                })
+            }
+        })
+        AllHistoricoCursos(1,1);
+        function AllHistoricoCursos(pageIndex, is) {
+            $.getJSON('@Url.Action("AllHistoricoCursos", "Estudiante")', { PageIndex: pageIndex }, function (O) {
+                if (O.Lst.length > 0) {
+                    $('#CursosHistoricoHtml').show();
+                    $('#Inicio').hide();
+                }
+                console.log(O);
+                var html = "";
+                $('#CursosHistoricoHtml').empty();
+                O.Lst.forEach((value, i) => {
+                    html += "<div class='col-xl-3 col-sm-6 col-lg-6 col-12'><div class='cardCarCustom card border-" + ((value.EstadoDetalleCronograma) ? "primary" : "success") + " mb-0'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:" + ((value.EstadoDetalleCronograma) ? "#007bff" : "#28a745") + "'>" + value.Programa + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + ((value.EstadoDetalleCronograma) ? "Activo" : "Cerrado") + "</span><i class='far fa-bookmark'></i> Estado Curso</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul><label class='text-center' style='margin:0px 0 0 0'>Objetivo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Objetivo + "</div><label class='text-center' style='margin:0px 0 0 0'>Tipo programa academico</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + (value.TipoPA) + "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li></ul><hr style='margin:0px 0 2px 0'><tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'><h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>" + value.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Grupo + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.FechaCurso + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Dias + "</div><div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>" + value.Horario + "</div></tex><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Docente + "</span><i class='fa fa-user'></i> Docente</li></ul><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' class='btn btn-outline-success btn-sm btn-block' onclick='Notas(" + value.IdDetalleCronograma + "," + value.IdInscripcion+")'><i class='fas fa-book-open'></i> Notas</button></div><div class='col-6'><button type='button' class='btn btn-outline-success btn-sm btn-block' onclick='Faltas(" + value.IdInscripcion + ")'><i class='far fa-clipboard'></i> Faltas</button></div></div></div></div></div>";
+                });
+                $('#CursosHistoricoHtml').append(html);
+                var TotalPages = parseInt(O.TotalPages);
+                var rangeMin = 4;
+                var rangeMax = parseInt(TotalPages) == 1 ? 1 : rangeMin && parseInt(TotalPages) < rangeMin ? parseInt(TotalPages) : rangeMin;
+
+                const paging = { range: rangeMax, pages: TotalPages };
+                var PageArray = doPaging(pageIndex, paging);
+                var sTatusPrev = (pageIndex <= 1) ? true : false;
+                var sTatuslast = (pageIndex >= paging.pages) ? true : false;
+                var html = "<li class='page-item first " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllHistoricoCursos(1, " + TotalPages + ")'>First</a></li><li class='page-item prev  " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllHistoricoCursos(" + parseInt(pageIndex - 1) + ", " + TotalPages + ")'>Prev</a></li>";
+                PageArray.forEach((value, i) => {
+                    html += value.Status
+                        ?
+                        "<li class='page-item active'><a class='page-link' href='#' onclick='AllHistoricoCursos(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>"
+                        :
+                        "<li class='page-item'><a class='page-link' href='#' onclick='AllHistoricoCursos(" + value.Page + ", " + TotalPages + ")'>" + value.Page + "</a></li>";
+                });
+                html += "<li class='page-item next " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllHistoricoCursos(" + parseInt(pageIndex + 1) + ", " + TotalPages + ")'>Next</a></li><li class='page-item last " + (sTatuslast ? "disabled" : "") + "'><a href='#' class='page-link' onclick='AllHistoricoCursos(" + paging.pages + ", " + TotalPages + ")'>Last</a></li>";
+                $('#PageHistorico').html(html);
+            });
+        }
+        function doPaging(current, { range, pages, start = 1 }) {
+            const paging = [];
+            var i = Math.min(pages + start - range, Math.max(start, current - (range / 2 | 0)));
+            const end = i + range;
+            while (i < end) {
+                var infStatus = i === current ? true : false;
+                paging.push({ Page: i++, Status: infStatus });
+            };
+            return paging;
+        };
+        function Faltas(IdInscripcion) {
+            $('#Modal_Faltas').modal('show');
+            $.getJSON('@Url.Action("Faltas", "Estudiante")', { IdInscripcion }, (O) => {
+                var html = "";
+                $('#TableFaltas').empty();
+                O.forEach((value, i) => {
+                    html += "<tr><td>" + (i + 1) + "</td><td>" + value.Fecha + "</td></tr>";
+                });
+                $('#TableFaltas').append(html);
+            });
+        }
+        function Notas(IdDetalleCronograma, IdInscripcion) {
+            $('#Modal_Notas').modal('show');
+            $.getJSON('@Url.Action("Notas", "Estudiante")', { IdDetalleCronograma, IdInscripcion }, (O) => {
+                var html = "";
+                $('#notasHtml').empty();
+                var sum = 0;
+                var Cont = 0;
+                O.forEach((value, i) => {
+                    html += "<text class='form-control' style='margin-top:5px;height:auto;'><h4 class='text-muted'>Criterio: <label style='margin:0 0 0 0'> " + value.Nombre + "</label></h4><hr style='margin:0 0 0 0' />";
+                    value.Actividades.forEach((valueActi, i) => {
+                        Cont = Cont + 1;
+                        sum += valueActi.NotaEvaluadaAlEstudiante;
+                        html += "<div class='row'><div class='col-6'><label style='margin:0px 0 0 0'>Actividad</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + valueActi.Nombre + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'>Nota</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + valueActi.NotaEvaluadaAlEstudiante +"</div></div></div><hr style='margin:0 0 0 0' />";
+                    });
+                    html += "</text>";
+                });
+                $('#notasHtml').append(html);
+                $('#Promedio').html(sum / Cont);;
+            });
+        }
+        $('.modal').focus(function () {
+            $('.fc-month-button').trigger('click');
+        });
+    </script>
+}

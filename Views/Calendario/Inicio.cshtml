@@ -1,0 +1,401 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-2">
+    <h4>Módulo Calendario<span style="font-size:12px;color:#808080"> Post-Grado</span></h4>
+    <div class="card  mb-3 m-1">
+        <div class="card-body">
+            <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-calendar-check"></i> Configuración Calendario</h4>
+            <div id="calender"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_DetalleCalendario" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #FFFDFD">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class='fa fa-cog'></i> Detalle Cronograma</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="CalIdCalendario" value="0" />
+                <label><i class="fas fa-cogs" style="color:#0A1230;"></i> Programa Academico:</label>
+                <input type="text" class="form-control text-center" disabled id="CalProgramaAcademico" />
+                <label><i class="fas fa-bacon" style="color:#0A1230;"></i> Objetivo</label>
+                <textarea class="form-control text-center" disabled id="CalObjetivo"></textarea>
+                <div class="row">
+                    <div class="col-6">
+                        <label><i class="fas fa-globe" style="color:#0A1230;"></i> Modalidad</label>
+                        <input type="text" class="form-control" disabled id="CalModalidad" />
+                    </div>
+                    <div class="col-6">
+                        <label><i class="fas fa-clipboard-check" style="color:#0A1230;"></i> Tipo programa académico</label>
+                        <input type="text" class="form-control" disabled id="CalTipoPA" />
+                    </div>
+                </div>
+                <hr style="margin:15px 0 0 0" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><i class="fas fa-layer-group" style="color:#0A1230"></i> Gestion:</label>
+                        <input type="text" class="form-control" disabled id="CalGestion" />
+                    </div>
+                    <div class="col-6">
+                        <label><i class="fas fa-code-branch" style="color:#0A1230"></i> Version del Cronograma:</label>
+                        <input type="text" class="form-control" disabled id="CalVersion" />
+                    </div>
+                </div>
+                <hr style="margin:15px 0 0 0" />
+                <label><i class="fas fa-bookmark"></i> Modulo</label>
+                <input type="text" class="form-control" disabled id="CalModulo" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><i class="fa fa-users" style="color:#0A1230"></i> Grupo:</label>
+                        <input type="text" class="form-control" disabled id="CalGrupo" />
+                    </div>
+                    <div class="col-6">
+                        <label><i class="fas fa-home" style="color:#0A1230"></i> Ambiemte:</label>
+                        <input type="text" class="form-control" disabled id="CalAmbiente" />
+                    </div>
+                </div>
+                <label><i class="fa fa-user" style="color:#0A1230"></i> Docente:</label>
+                <input type="text" class="form-control" disabled id="CalDocente" />
+                <hr style="margin:15px 0 0 0" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><i class="fas fa-calendar-day"></i> Fecha Curso</label>
+                        <input type="text" class="form-control text-center" disabled id="CalFechaCurso" />
+                    </div>
+                    <div class="col-6">
+                        <label><i class="fas fa-hourglass-start"></i> Horario</label>
+                        <input type="text" class="form-control text-center" disabled id="CalHorario" />
+                    </div>
+                </div>
+                <label><i class="fas fa-cloud-sun-rain"></i> Dias</label>
+                <input type="text" class="form-control text-center" disabled id="CalDias" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-check-circle"></i> Cerrar</button>
+                <button type="button" class="btn btn-outline-danger" id="btnDelete"><i class="fa fa-trash"></i> Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_MensajeFeriado" tabindex="-1" role="dialog" style="overflow-y:scroll">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" style="background-color: #FFFDFD">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class='fa fa-cog'></i> Feriado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label class='text-center' style='margin:0px 0 0 0'>Descripción</label>
+                <div id="DescripcionFeriado">
+
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+   <div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Save Event</h4>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12 form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" id="txtSubject" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Start</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="chkIsFullDay" checked="checked" />  Is Full Day event</label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEndDate" style="display:none">
+                        <label>End</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Theme Color</label>
+                        <select id="ddThemeColor" class="form-control">
+                            <option value="">Default</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="black">Black</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+-->
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetEvents", "Calendario")',
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.EventID,
+                                title: v.Title,
+                                description: v.Description,
+                                start: moment(v.Start),
+                                end: v.End != null ? moment(v.End) : null,
+                                color: v.Color,
+                                allDay: v.AllDay
+                            });
+
+                            //events.push({
+                            //    eventID: v.EventID,
+                            //    title: v.Subject,
+                            //    description: v.Description,
+                            //    start: moment(v.Start),
+                            //    end: v.End != null ? moment(v.End) : null,
+                            //    color: v.ThemeColor,
+                            //    allDay: v.IsFullDay
+                            //});
+                        })
+
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+            }
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
+                        //$('#Modal_DetalleCalendario #eventTitle').text(calEvent.title);
+                        //var $description = $('<div/>');
+                        //$description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        //if (calEvent.end != null) {
+                        //    $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        //}
+                        //$description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        //$('#Modal_DetalleCalendario #pDetails').empty().html($description);
+                        openAddEditForm();                        
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            color: ''
+                        };
+                        //openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function (event) {
+                        var data = {
+                            EventID: event.eventID,
+                            Subject: event.title,
+                            Start: event.start.format('DD/MM/YYYY HH:mm A'),
+                            End: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
+                            Description: event.description,
+                            ThemeColor: event.color,
+                            IsFullDay: event.allDay
+                        };
+                        SaveEvent(data);
+                    }
+                })
+            }
+
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+            $('#btnDelete').click(function () {
+                if (selectedEvent != null && confirm('¿Esta seguro?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Eliminar", "Calendario")',
+                        data: { 'IdCalendario': selectedEvent.eventID },
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                FetchEventAndRenderCalendar();
+                                $('#Modal_DetalleCalendario').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
+                }
+            })
+
+            //$('#dtp1,#dtp2').datetimepicker({
+            //    format: 'DD/MM/YYYY HH:mm A'
+            //});
+
+            //$('#chkIsFullDay').change(function () {
+            //    if ($(this).is(':checked')) {
+            //        $('#divEndDate').hide();
+            //    }
+            //    else {
+            //        $('#divEndDate').show();
+            //    }
+            //});
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $.getJSON('@Url.Action("GetDetalleEvento", "Calendario")', { IdCalendario: selectedEvent.eventID }, (O) => {                        
+                        if (O.Feriado) {
+                            $('#Modal_MensajeFeriado').modal('show');
+                            $('#DescripcionFeriado').html("<div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0' >Feriado por - " + O.Obj.Descripcion + "</div>");
+
+                        } else {
+                            $('#Modal_DetalleCalendario').modal();
+                            $('#CalIdCalendario').val(O.Obj.IdCalendario);
+                            $('#CalProgramaAcademico').val(O.Obj.ProgramaAcademico);
+                            $('#CalObjetivo').val(O.Obj.Objetivo);
+                            $('#CalModalidad').val(O.Obj.Modalidad);
+                            $('#CalTipoPA').val(O.Obj.TipoPA);
+                            $('#CalGestion').val(O.Obj.Gestion);
+                            $('#CalVersion').val(O.Obj.Version);
+                            $('#CalModulo').val(O.Obj.Modulo);
+                            $('#CalGrupo').val(O.Obj.Grupo);
+                            $('#CalAmbiente').val(O.Obj.Ambiente);
+                            $('#CalDocente').val(O.Obj.Docente);
+                            $('#CalFechaCurso').val(O.Obj.FechaCurso);
+                            $('#CalHorario').val(O.Obj.Horario);
+                            $('#CalDias').val(O.Obj.Dias);
+                        }                 
+                    });
+                    //$('#hdEventID').val(selectedEvent.eventID);
+                    //$('#txtSubject').val(selectedEvent.title);
+                    //$('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+                    //$('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
+                    //$('#chkIsFullDay').change();
+                    //$('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
+                    //$('#txtDescription').val(selectedEvent.description);
+                    //$('#ddThemeColor').val(selectedEvent.color);
+                }
+                $('#Modal_DetalleCalendario').modal('hide');
+                //$('#myModalSave').modal();
+            }
+
+            $('#btnSave').click(function () {
+                //Validation/
+                //if ($('#txtSubject').val().trim() == "") {
+                //    alert('Subject required');
+                //    return;
+                //}
+                //if ($('#txtStart').val().trim() == "") {
+                //    alert('Start date required');
+                //    return;
+                //}
+                //if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
+                //    alert('End date required');
+                //    return;
+                //}
+                //else {
+                //    var startDate = moment($('#txtStart').val(), "DD/MM/YYYY HH:mm A").toDate();
+                //    var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY HH:mm A").toDate();
+                //    if (startDate > endDate) {
+                //        alert('Invalid end date');
+                //        return;
+                //    }
+                //}
+
+                var data = {
+                    EventID: $('#hdEventID').val(),
+                    Subject: $('#txtSubject').val().trim(),
+                    Start: $('#txtStart').val().trim(),
+                    End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
+                    Description: $('#txtDescription').val(),
+                    ThemeColor: $('#ddThemeColor').val(),
+                    IsFullDay: $('#chkIsFullDay').is(':checked')
+                }
+                SaveEvent(data);
+                // call function for submit data to the server
+            })
+
+            function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveEvent", "Calendario")',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            //$('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }
+        })
+    </script>
+}

@@ -21,21 +21,31 @@
             <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
             <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
             <link href="~/Content/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-            <link href="~/Content/css/jquery-confirm.min.css" rel="stylesheet" />
+            @*<link href="~/Content/css/jquery-confirm.min.css" rel="stylesheet" />*@
             <link href="~/Content/fontawesome-free-5.12.1/css/all.min.css" rel="stylesheet" />
             <link href="~/Content/css/CardCuston.css" rel="stylesheet" />
             <link href="~/Content/css/CustomStyle.css" rel="stylesheet" />
             <link href="~/Content/css/loader.css" rel="stylesheet" />
             <link href="~/Content/css/Style.css" rel="stylesheet" />
             <link href="~/Content/css/toastr.css" rel="stylesheet" />
+            <!--Recursos Calendario Css-->
+            <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+            <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
-            <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+            <script src="~/Scripts/jquery-1.10.2.js"></script>
+            @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
             <script src="~/Content/js/bootstrap.min.js"></script>
             <script src="~/Content/js/jquery.dataTables.min.js"></script>
             <script src="~/Content/js/dataTables.bootstrap4.min.js"></script>
             <script src="~/Content/js/jquery.toaster.js"></script>
             <script src="~/Content/js/jquery-confirm.min.js"></script>
             <script src="~/Content/js/toastr.js"></script>
+            <!--Recursos Calendario Js-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
             <style>
                 * {
                     font-size: 12px;
@@ -66,7 +76,7 @@
         <body>
             <div>
                 <nav class="navbar navbar-expand-lg navbar-dark">
-                    <a class="navbar-brand blanco" href="@Url.Action("Inicio","Home")">Post-Grado</a>
+                    <a class="navbar-brand blanco" href="@Url.Action("Inicio", "Home")">Post-Grado</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -75,59 +85,60 @@
                             <li class="nav-item active">
                                 <a href="@Url.Action("Inicio","Home")" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
                             </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Persona")" class="nav-link"><i class="fa fa-users" aria-hidden="true"></i> Personas</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Usuario")" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> Usuario</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Ambiente")" class="nav-link"><i class="fas fa-archway"></i> Ambiente</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","ProgramaAcademico")" class="nav-link"><i class="fas fa-cogs" aria-hidden="true"></i> Programa Academico</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Formacion")" class="nav-link"><i class="fas fa-cogs" aria-hidden="true"></i> Formación</a>
-                            </li>
-                            @*@if (UsuarioLogin.PerfilSistema == 1)
-        {
-            <li class="nav-item active">
-                <a href="@Url.Action("Inicio","Usuario")" class="nav-link"><i class="fa fa-university" aria-hidden="true"></i> Usuario</a>
-            </li>
-            <li class="nav-item active">
-                <a href="@Url.Action("Inicio","Categorias")" class="nav-link"><i class="fa fa-tasks" aria-hidden="true"></i> Categoria</a>
-            </li>
-            <li class="nav-item active">
-                <a href="@Url.Action("Inicio","Producto")" class="nav-link"><i class="fas fa-warehouse"></i> Almacen</a>
-            </li>
-        }*@
+                            @{
+                                switch (int.Parse(IdRol))
+                                {
+                                    case 1:
+                                    case 2:
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Persona")" class="nav-link"><i class="fa fa-users" aria-hidden="true"></i> Personas</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Usuario")" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> Usuario</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Ambiente")" class="nav-link"><i class="fas fa-archway"></i> Ambiente</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","ProgramaAcademico")" class="nav-link"><i class="fab fa-whmcs"></i> Programa Academico</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Cronograma")" class="nav-link"><i class="fas fa-cogs" aria-hidden="true"></i> Cronograma</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Calendario")" class="nav-link"><i class="fas fa-calendar-check" aria-hidden="true"></i> Calendario</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Inscripcion")" class="nav-link"><i class="fas fa-user-plus" aria-hidden="true"></i> Inscripción</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Feriados")" class="nav-link"><i class="far fa-calendar-times"></i> Feriados</a>
+                                        </li>
+                                        break;
+                                    case 3:
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Formacion")" class="nav-link"><i class="fas fa-graduation-cap"></i> Formación</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Docente")" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Cursos Asignados</a>
+                                        </li>
+                                        break;
+                                    case 4:
+                                        <li class="nav-item active">
+                                            <a href="@Url.Action("Inicio","Estudiante")" class="nav-link"><i class="fas fa-user-graduate"></i> Cursos Inscritos</a>
+                                        </li>
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
                             <li class="nav-item dropdown active">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="far fa-money-bill-alt"></i> Tesoreria
+                                    <i class="fa fa-print"></i> Reportes
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @*@if (UsuarioLogin.PerfilSistema == 1)
-                {
-                    <a href="@Url.Action("Inicio","Cajas")" class="dropdown-item"><i class="far fa-money-bill-alt"></i> Adm Cajas</a>
-                }*@
-                                    <a href="@Url.Action("Inicio","AperturaCaja")" class="dropdown-item"><i class="fas fa-hand-holding-usd"></i> Apertura/Cierre</a>
+                                    <a href="#" onclick="HistoricoProgramasCursados()" class="dropdown-item"><i class="far fa-money-bill-alt"></i> Historico Progrmas Cursados</a>
                                 </div>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Ventas")" class="nav-link"><i class="fas fa-hand-holding-usd"></i> Venta</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Vale")" class="nav-link"><i class="far fa-file-alt"></i> Vale</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Creditos")" class="nav-link"><i class="fas fa-hand-holding"></i> Cobros Credito</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","AnulacionVenta")" class="nav-link"><i class="fas fa-scroll"></i> Ventas Realizadas</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Inicio","Reportes")" class="nav-link"><i class="fa fa-sitemap" aria-hidden="true"></i> Reportes</a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -167,6 +178,10 @@
                             default:
                         }
                     });
+                }
+                function HistoricoProgramasCursados() {
+                    var url = '@Url.Action("ReporteHistoricoNotas", "Reportes")' + '?Tipo=PDF';
+                    window.open(url);
                 }
             </script>
             @RenderSection("scripts", required: false)
