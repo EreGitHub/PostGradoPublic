@@ -135,8 +135,7 @@
         function ViewPersona(IdPersona, _EstadoModificar) {
             EstadoModificar = _EstadoModificar;
             disabledHtml();    
-            $.getJSON('@Url.Action("GetPersonaObj", "Persona")', { IdPersona: IdPersona }, function (O) {   
-                console.log(O)
+            $.getJSON('@Url.Action("GetPersonaObj", "Persona")', { IdPersona: IdPersona }, function (O) {             
                 $("#IdPersona").val(O.Id);
                 $("#DNI").val(O.DNI);
                 $("#Nombres").val(O.Nombres);

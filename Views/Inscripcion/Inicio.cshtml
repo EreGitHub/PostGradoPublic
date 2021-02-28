@@ -53,7 +53,7 @@
                         </div>
                     </div>
 
-                    <div class="row"style="margin-top:5px" id="CursosHtml">
+                    <div class="row" style="margin-top:5px" id="CursosHtml">
 
 
                         <div class='col-xl-4 col-sm-6 col-lg-4 col-12'>
@@ -111,7 +111,7 @@
                         </div>
 
 
-                    </div>                    
+                    </div>
                     <div id="Inicio" style="width:100%;padding:8% 0 8% 0">
                         <h1 class="text-muted text-center"><i class="fa fa-frown-o"></i> SIN REGISTRO</h1>
                     </div>
@@ -142,9 +142,7 @@
                             <thead>
                                 <tr role="row">
                                     <th class="sorting" tabindex="0" aria-controls="tcursos" rowspan="1" colspan="1" aria-label="Cantidad: activate to sort column ascending">Programa</th>
-                                    <th class="sorting" tabindex="0" aria-controls="tcursos" rowspan="1" colspan="1" aria-label="Cantidad: activate to sort column ascending">Estado</th>
-                                    <th class="sorting" tabindex="0" aria-controls="tcursos" rowspan="1" colspan="1" aria-label="Valor: activate to sort column descending" style="width: 1px;" aria-sort="ascending"></th>
-                                    <th class="sorting" tabindex="0" aria-controls="tcursos" rowspan="1" colspan="1" aria-label="Valor: activate to sort column descending" style="width: 1px;" aria-sort="ascending"></th>
+                                    <th class="sorting" tabindex="0" aria-controls="tcursos" rowspan="1" colspan="1" aria-label="Cantidad: activate to sort column ascending">Estado</th>                                    
                                 </tr>
                             </thead>
                             <tfoot>
@@ -232,14 +230,15 @@
             $('#InsSexo').val(Sexo);
             tablaCursando.clear().draw();
             tablaCursado.clear().draw();
-            $.getJSON('@Url.Action("AllCursosInscritoEstudiante", "Inscripcion")', { IdEstudiante: Id }, (O) => {                
+            $.getJSON('@Url.Action("AllCursosInscritoEstudiante", "Inscripcion")', { IdEstudiante: Id }, (O) => {
                 if (O != null) {
+                    console.log(O)
                     for (var i = 0; i < O.length; i++) {
                         if (O[i].EstadoDetalleCronograma) {
                             fila1 = [O[i].Programa, "Cursando", "<button onclick='EliminarInscripcion(" + O[i].IdInscripcion + ")' style='float:right' class='btn btn-outline-danger btn-sm'><span class='fas fa-trash'></span></button>"];
                             tablaCursando.row.add(fila1).draw(false);
                         } else {
-                            fila2 = [O[i].Programa, "Cursando", "<button onclick='EliminarInscripcion(" + O[i].IdInscripcion + ")' style='float:right' class='btn btn-outline-danger btn-sm'><span class='fas fa-trash'></span></button>"];
+                            fila2 = [O[i].Programa, "Cursando"];
                             tablaCursado.row.add(fila2).draw(false);
                         }
                     }
@@ -247,9 +246,9 @@
             });
         }
         function EliminarInscripcion(IdInscripcion) {
-            $.getJSON('@Url.Action("EliminarInscripcion", "Inscripcion")', { IdInscripcion }, (O) => {                
+            $.getJSON('@Url.Action("EliminarInscripcion", "Inscripcion")', { IdInscripcion }, (O) => {
                 if (O.responce) {
-                    LimpiarCampos();                    
+                    LimpiarCampos();
                 }
                 MostarInfSave(O.StatusSave);
             });

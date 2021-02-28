@@ -175,8 +175,8 @@
                 <input type="text" id="NombreModulo" class="form-control" placeholder="Nombre Modulo" />
                 <label>Numero Credito</label>
                 <input type="number" id="NumeroCreditoModulo" class="form-control" placeholder="Numero Credito" />
-                <label>Duración en min</label>
-                <input type="number" id="DuracionEnMinModulo" class="form-control" placeholder="Numero Credito" />
+                <label>Duración</label>
+                <input type="text" id="DuracionModulo" class="form-control" placeholder="Duración" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
@@ -353,10 +353,10 @@
         function Modulos(IdPrograma) {
             $('#IdPrograma').val(IdPrograma);
             $('#Modal_Modulos').modal('show');
-            $.getJSON('@Url.Action("All", "Modulos")', { IdProgramaAcademico: IdPrograma }, (O) => {
+            $.getJSON('@Url.Action("All", "Modulos")', { IdProgramaAcademico: IdPrograma }, (O) => {                
                 var html = "";
                 O.forEach((value, i) => {
-                    html += "<div class='col-xl-3 col-sm-4 col-lg-4 col-6'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Nombre + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Numero + "</span><i class='fas fa-hashtag'></i> Numero</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.NumCredito + "</span > <i class='fas fa-hashtag'></i> Numero Credito</li ></ul><button type='button' onclick='Contenidos(" + value.Id + ")' style='margin-right:0px;margin:8px 0 0px 0' data-toggle='tooltip' data-placement='top' title='Agregar Contenidos' class='btn btn-block btn-outline-secondary btn-sm'><i class='fa fa-plus'></i> Contenidos</button><hr style='margin:4px 0 0 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' onclick='ModificarModulo(" + value.Id + "," + value.Numero + ",\"" + value.Nombre + "\"," + value.NumCredito + "," + value.DuracionEnMin + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i></button></div><div class='col-6'><button type='button' onclick='EliminarModulo(" + value.Id + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i></button></div></div></div></div></div>";
+                    html += "<div class='col-xl-3 col-sm-4 col-lg-4 col-6'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Nombre + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Numero + "</span><i class='fas fa-hashtag'></i> Numero</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.NumCredito + "</span > <i class='fas fa-hashtag'></i> Numero Credito</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Duracion + "</span><i class='fas fa-hashtag'></i> Duración</li></ul><button type='button' onclick='Contenidos(" + value.Id + ")' style='margin-right:0px;margin:8px 0 0px 0' data-toggle='tooltip' data-placement='top' title='Agregar Contenidos' class='btn btn-block btn-outline-secondary btn-sm'><i class='fa fa-plus'></i> Contenidos</button><hr style='margin:4px 0 0 0'><div style='margin-top:5px' class='footer'><div class='row'><div class='col-6'><button type='button' onclick='ModificarModulo(" + value.Id + "," + value.Numero + ",\"" + value.Nombre + "\"," + value.NumCredito + ",\"" + value.Duracion + "\")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Agregar Modulos al programa' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i></button></div><div class='col-6'><button type='button' onclick='EliminarModulo(" + value.Id + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar Programa Academico' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash-alt'></i></button></div></div></div></div></div>";
                 });
                 $('#ModulosHtml').html(html);
             });
@@ -373,7 +373,7 @@
             $('#NumeroModulo').val(Numero);
             $('#NombreModulo').val(Nombre);
             $('#NumeroCreditoModulo').val(NumCredito);
-            $('#DuracionEnMinModulo').val(Duracion);
+            $('#DuracionModulo').val(Duracion);
         }
         function EliminarModulo(IdModulo) {
             $.getJSON('@Url.Action("Eliminar", "Modulos")', { IdModulo }, (O) => {
@@ -388,7 +388,7 @@
             $('#NumeroModulo').val("")
             $('#NombreModulo').val("")
             $('#NumeroCreditoModulo').val("")
-            $('#DuracionEnMinModulo').val(0)
+            $('#DuracionModulo').val("")
         }
         function GuardarModulo() {
             var Obj = {
@@ -396,7 +396,7 @@
                 Numero: $('#NumeroModulo').val(),
                 Nombre: $('#NombreModulo').val(),
                 NumCredito: $('#NumeroCreditoModulo').val(),
-                DuracionEnMin: $('#DuracionEnMinModulo').val(),
+                Duracion: $('#DuracionModulo').val(),
                 ProgramaAcademico: $('#IdPrograma').val(),
             };
             $.getJSON('@Url.Action("Guardar", "Modulos")', Obj, (O) => {

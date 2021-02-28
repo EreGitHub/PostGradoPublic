@@ -292,7 +292,7 @@
                     html += "</text>";
                 });
                 $('#notasHtml').append(html);
-                $('#Promedio').html(sum / Cont);;
+                $('#Promedio').html(Math.round(sum / Cont));
             });
         }
         $('.modal').focus(function () {

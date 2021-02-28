@@ -84,7 +84,10 @@
                             <button id="CriterioVerificacion" style="margin-bottom:3px" class="list-group-item active" onclick="SeleccionarReporte('CriterioVerificacion')">Criterios Verificación</button>
                             <button id="EvaluacionEstudiantil" style="margin-bottom:3px" class="list-group-item" onclick="SeleccionarReporte('EvaluacionEstudiantil')">Evaluación Estudiantil</button>
                             <button id="Asistencia" style="margin-bottom:3px" class="list-group-item" onclick="SeleccionarReporte('Asistencia')">Asistencia</button>
-                            <button id="ReporteConsolodado" style="margin-bottom:3px" class="list-group-item" onclick="SeleccionarReporte('ReporteConsolodado')">Reporte Consolidado</button>
+                            <button id="RptInformeActividad" style="margin-bottom:3px" disabled class="list-group-item" onclick="SeleccionarReporte('RptInformeActividad')">Informe de Cierre de Actividad </button>
+                            <button id="RptAsistencia" style="margin-bottom:3px" disabled class="list-group-item" onclick="SeleccionarReporte('RptAsistencia')">Informe asistencia diplomado</button>
+                            <button id="RptCentralizadorNotas" style="margin-bottom:3px" disabled class="list-group-item" onclick="SeleccionarReporte('RptCentralizadorNotas')">Informe centralizador de notas</button>
+                            <button id="RptActaCierreModulo" style="margin-bottom:3px" disabled class="list-group-item" onclick="SeleccionarReporte('RptActaCierreModulo')">Informe acta de cierre de módulo</button>
                         </ul>
                     </div>
                     <div class="col-sm-9">
@@ -196,7 +199,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div id="AsistenciaHtml" style="display:none;">
                             <hr style="margin:0 0 5px 0" />
                             <h1 class="text-muted text-center" id="NombreReporte">ESTUDIANTES INSCRITOS</h1>
@@ -304,8 +306,16 @@
         });
         var ArrayEstudiantesEvaluar = [];
         $('#CursosHtml').hide();
-        $('#Inicio').show();
+        $('#Inicio').show();        
         AllAsignaciones();
+        function VerificarModulo() {
+            $.getJSON('@Url.Action("VerificarModulo", "Docente")', { IdDetalleCronograma: $('#IdDetalleCronograma').val() }, (O) => {                
+                $('#RptInformeActividad').prop('disabled', !O);
+                $('#RptAsistencia').prop('disabled', !O);
+                $('#RptCentralizadorNotas').prop('disabled', !O);
+                $('#RptActaCierreModulo').prop('disabled', !O);
+            });
+        }
         function SeleccionarReporte(IdNombre) {
             $(".list-group-item").removeClass('active');
             $("#" + IdNombre).addClass('active');
@@ -326,8 +336,16 @@
                     $('#EvaluacionEstudiantilHtml').hide();
                     $('#AsistenciaHtml').show();
                     break;
-                case "ReporteConsolodado":
-                    var url = '@Url.Action("ReporteConsolidado", "Reportes")' + '?Tipo=PDF&IdDetelleCronograma=' + $('#IdDetalleCronograma').val();
+                case "RptInformeActividad":
+                    var url = '@Url.Action("InformeActividad", "Reportes")' + '?Tipo=PDF&IdDetelleCronograma=' + $('#IdDetalleCronograma').val();
+                    window.open(url);
+                    break;
+                case "RptCentralizadorNotas":
+                    var url = '@Url.Action("CentralizadorNotas", "Reportes")' + '?Tipo=PDF&IdDetelleCronograma=' + $('#IdDetalleCronograma').val();
+                    window.open(url);
+                    break;
+                case "RptActaCierreModulo":
+                    var url = '@Url.Action("ActaCierre", "Reportes")' + '?Tipo=PDF&IdDetelleCronograma=' + $('#IdDetalleCronograma').val();
                     window.open(url);
                     break;
                 default:
@@ -345,7 +363,7 @@
                     $('#CursosHtml').show();
                     $('#Inicio').hide();
                 }
-                console.log(O);
+                //console.log(O);
                 var Html = "";
                 O.forEach((value, i) => {
                     Html += "<div class='col-xl-3 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-0'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Programa + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.TipoPA + "</span><i class='far fa-bookmark'></i> Tipo Programa</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul><label class='text-center' style='margin:0px 0 0 0'>Objetivo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Objetivo + "</div><hr style='margin:0px 0 2px 0'><tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'><h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>" + value.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Grupo + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.FechaCurso + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Dias + "</div><div class='alert alert-primary text-center' style='margin:0px 0 0px 0;padding:0 0 0 0'>" + value.Horario + "</div></tex><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li></ul><div style='margin-top:5px' class='footer'><button type='button' class='btn btn-outline-success btn-sm btn-block' onclick='ShowModalMenu(" + value.IdDetalleCronograma + ")'><i class='far fa-clipboard'></i> </button></div></div></div>";
@@ -360,6 +378,7 @@
             AllEstudiantesAsistencia();
             ListarActiviades();
             ListaEstudianteEvaluar();
+            VerificarModulo();
             //$('#btnGurdarNota').prop("disabled", false);
             //$('#btnGurdarNota').prop("disabled", false);
             //$("#TableEstudiantesEvaluar").empty();
@@ -382,7 +401,7 @@
                     $('#InicioListaEstudiantes').hide();
                     $('#tEstudiantes').show();
                     O.Lst.forEach((value, i) => {
-                        $('#TableAsistencia').append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + " " + value.Apaterno + " " + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Sexo == 'M') ? "Masculino" : "Femenino") + "</td><td>" + value.Faltas + "</td><td><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'P' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'P') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>P</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'F' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'F') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>F</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'L' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'L') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "'>L</button></td></tr>");
+                        $('#TableAsistencia').append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + " " + value.Apaterno + " " + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Sexo == 'M') ? "Masculino" : "Femenino") + "</td><td>" + value.Faltas + "</td><td>" + ((value.Faltas >= 3) ? "Bloqueado" : "<button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'P' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'P') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>P</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'F' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'F') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>F</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'L' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'L') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "'>L</button>") + "</td></tr>");
                     });
                 } else {
                     $('#InicioListaEstudiantes').show();
@@ -421,7 +440,7 @@
             $('#CriteriosHtml').hide();
             $('#InicioListaCriterio').show();
             $('#IdCriterioVerificarEvaluar').empty();
-            $('#IdCriterioVerificarEvaluar').append("<option value='0'>Seleccione un riterio</option>");
+            $('#IdCriterioVerificarEvaluar').append("<option value='0'>Seleccione un criterio</option>");
             $.getJSON('@Url.Action("All", "Criterio")', { IdDetalleCronograma: $('#IdDetalleCronograma').val() }, (O) => {
                 if (O.length > 0) {
                     $('#CriteriosHtml').show();
@@ -429,7 +448,7 @@
                 }
                 var Html = "";
                 O.forEach((value, i) => {
-                    $('#IdCriterioVerificarEvaluar').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                    $('#IdCriterioVerificarEvaluar').append("<option value='" + value.Id + "'>(" + value.Ponderacion + "%) - " + value.Nombre + "</option>");
                     Html += "<div class='col-xl-4 col-sm-12 col-lg-6 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'> Información Criterio</h4></div><hr style='margin:0px 0 2px 0'><label style='margin:0px 0 0 0'>Nombre Criterio</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Nombre + "</div><label style='margin:0px 0 0 0'>Ponderación Criterio</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ponderacion + "</div><hr style='margin:0px 0 8px 0'><button type='button' class='btn btn-outline-success btn-sm mb-1 btn-block' onclick='AgregarNuevaActividad(" + value.Id + ")'><i class='fa fa-plus'></i> Agregar Actividad</button><div class='containerCustom table-responsive'><table class='table table-hover table-sm' style='font-size:12px;'><thead><tr style='background-color:#17a2b8;border-color:#17a2b8;color:white'><th>Actividad</th><th>Valor</th><th width='1px'></th><th width='1px'></th></tr></thead><tbody>";
                     value.Actividades.forEach((valueActividad, i) => {
                         Html += "<tr><td>" + valueActividad.Nombre + "</td><td>" + valueActividad.Calificacion + "</td><td><button type='button' class='btn btn-outline-primary btn-sm' onclick='ModificarActividad(" + valueActividad.Id + ",\"" + valueActividad.Nombre + "\",\"" + valueActividad.Calificacion + "\"," + value.Id + ")'><i class='fa fa-pen'></i></button></td><td><button type='button' class='btn btn-outline-danger btn-sm' onclick='EliminarActividad(" + valueActividad.Id + ")'><i class='fa fa-trash'></i></button></td></tr>";
@@ -526,8 +545,9 @@
             $('#IdActividadEvaluar').prop("disabled", false);
             $('#IdActividadEvaluar').append("<option value='0'>Selecciones una actividad</option>");
             $.getJSON('@Url.Action("Get", "Actividades")', { IdCriterioVerificacion: $('#IdCriterioVerificarEvaluar').val() }, (O) => {
+                console.log(O);
                 O.forEach((value, i) => {
-                    $('#IdActividadEvaluar').append("<option value='" + value.Id + "'>" + value.Nombre + "</option>");
+                    $('#IdActividadEvaluar').append("<option value='" + value.Id + "'>(" + value.Calificacion + "%) - " + value.Nombre + "</option>");
                 });
             });
         }
@@ -541,7 +561,7 @@
                 };
                 $.getJSON('@Url.Action("AllEstudiantes","Evaluacion")', Obj, (O) => {
                     ArrayEstudiantesEvaluar = O;
-                    console.log(O)
+                    //console.log(O)
                     //$('#Check_GuardadoDefinitivo').prop('checked', true);
                     //Check_GuardadoDefinitivo
                     //CheckDefinitoGuardado name
@@ -555,6 +575,7 @@
                     if (O.length != 0) {
                         $('#btnGurdarNota').prop("disabled", false);
                     }
+                    console.log(O)
                     ArrayEstudiantesEvaluar.forEach((value, i) => {
                         if (value.IdEvaluacion == 0) {
                             $('#btnGurdarNota').show();
@@ -564,7 +585,7 @@
                             $('#btnGurdarNota').hide();
                             $('#btnReporteActividades').prop("disabled", false);
                         }
-                        $("#TableEstudiantesEvaluar").append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td><input type='number' " + ((value.IdEvaluacion != 0) ? "disabled" : "") + " class='form-control' id='Nota" + value.IdInscripcion + "' value='" + value.Valor + "' /></td></tr>");
+                        $("#TableEstudiantesEvaluar").append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Faltas >= 3) ? "Bloqueado" : "<input type='number' " + ((value.IdEvaluacion != 0) ? "disabled" : "") + " class='form-control' id='Nota" + value.IdInscripcion + "' value='" + value.Valor + "' />") + "</td></tr>");
                     });
                 });
             }
@@ -599,6 +620,7 @@
                     if (O.responce) {
                         ListaEstudianteEvaluar();
                         $('#btnGurdarNota').prop("disabled", true);
+                        VerificarModulo();
                         //$('#IdPeriodo').val(0);
                         //Desbloquear();
                         //$('#Check_GuardadoDefinitivo').prop('checked', false);
