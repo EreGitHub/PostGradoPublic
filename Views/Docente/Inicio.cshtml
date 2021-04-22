@@ -306,10 +306,10 @@
         });
         var ArrayEstudiantesEvaluar = [];
         $('#CursosHtml').hide();
-        $('#Inicio').show();        
+        $('#Inicio').show();
         AllAsignaciones();
         function VerificarModulo() {
-            $.getJSON('@Url.Action("VerificarModulo", "Docente")', { IdDetalleCronograma: $('#IdDetalleCronograma').val() }, (O) => {                
+            $.getJSON('@Url.Action("VerificarModulo", "Docente")', { IdDetalleCronograma: $('#IdDetalleCronograma').val() }, (O) => {
                 $('#RptInformeActividad').prop('disabled', !O);
                 $('#RptAsistencia').prop('disabled', !O);
                 $('#RptCentralizadorNotas').prop('disabled', !O);
@@ -348,6 +348,10 @@
                     var url = '@Url.Action("ActaCierre", "Reportes")' + '?Tipo=PDF&IdDetelleCronograma=' + $('#IdDetalleCronograma').val();
                     window.open(url);
                     break;
+                case "RptAsistencia":
+                    var url = '@Url.Action("InformeAsistencia", "Reportes")' + '?Tipo=PDF&IdDetelleCronograma=' + $('#IdDetalleCronograma').val();
+                    window.open(url);
+                    break;                    
                 default:
                     break;
             }
@@ -401,7 +405,7 @@
                     $('#InicioListaEstudiantes').hide();
                     $('#tEstudiantes').show();
                     O.Lst.forEach((value, i) => {
-                        $('#TableAsistencia').append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + " " + value.Apaterno + " " + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Sexo == 'M') ? "Masculino" : "Femenino") + "</td><td>" + value.Faltas + "</td><td>" + ((value.Faltas >= 3) ? "Bloqueado" : "<button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'P' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'P') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>P</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'F' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'F') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>F</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'L' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'L') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "'>L</button>") + "</td></tr>");
+                        $('#TableAsistencia').append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + " " + value.Apaterno + " " + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Sexo == 'M') ? "Masculino" : "Femenino") + "</td><td>" + value.Faltas + "</td><td>" + ((value.Habilitado >= 1) ? "Bloqueado" : "<button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'P' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'P') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>P</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'F' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'F') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "' style='margin-right:2px'>F</button><button onclick='GuardarAsistencia(" + value.IdAsistencia + "," + value.IdCalendario + ",\"" + 'L' + "\"," + value.IdInscripcion + ")' class='" + ((value.ValorAsistencia == 'L') ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-dark") + "'>L</button>") + "</td></tr>");
                     });
                 } else {
                     $('#InicioListaEstudiantes').show();
@@ -574,8 +578,7 @@
                     //}
                     if (O.length != 0) {
                         $('#btnGurdarNota').prop("disabled", false);
-                    }
-                    console.log(O)
+                    }                    
                     ArrayEstudiantesEvaluar.forEach((value, i) => {
                         if (value.IdEvaluacion == 0) {
                             $('#btnGurdarNota').show();
@@ -585,7 +588,7 @@
                             $('#btnGurdarNota').hide();
                             $('#btnReporteActividades').prop("disabled", false);
                         }
-                        $("#TableEstudiantesEvaluar").append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Faltas >= 3) ? "Bloqueado" : "<input type='number' " + ((value.IdEvaluacion != 0) ? "disabled" : "") + " class='form-control' id='Nota" + value.IdInscripcion + "' value='" + value.Valor + "' />") + "</td></tr>");
+                        $("#TableEstudiantesEvaluar").append("<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td>" + ((value.Habilitado >= 1) ? "Bloqueado" : "<input type='number' " + ((value.IdEvaluacion != 0) ? "disabled" : "") + " class='form-control' id='Nota" + value.IdInscripcion + "' value='" + value.Valor + "' />") + "</td></tr>");
                     });
                 });
             }

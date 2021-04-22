@@ -86,6 +86,7 @@
             $("#BtnGuardar").prop("disabled", !EstadoModificar);
         }
         function LimpiarDatos() {
+            $('#IdAmbiente').val(0);
             $("#Nombre").val("");
         }
         function Eliminar(Id) {
@@ -109,21 +110,6 @@
                 }
                 MostarInfSave(O.StatusSave);
             });
-            @*$.ajax({
-                url: '@Url.Action("Guardar","Usuario")',
-                type: 'POST',
-                contentType: 'application/json',
-                dataType: 'json',
-                data: JSON.stringify(Obj),
-                success: function (O) {
-                    console.log(O)
-                    if (O.responce) {
-                        Cancelar();
-                        ListarAmbientes(1, 1);
-                    }
-                    MostarInfSave(O.StatusSave);
-                }
-            });*@
         };
     </script>
 }

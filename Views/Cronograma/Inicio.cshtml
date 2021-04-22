@@ -21,11 +21,11 @@
                     <button type="button" onclick="AllCronograma(1,1)" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-search"></i> </button>
                 </div>
             </div>
-            <button type="button" onclick="NuevoCronograma()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Nuevo Cronograma</button>            
+            <button type="button" onclick="NuevoCronograma()" style="margin-right:3px" class="btn mb-1 btn-block btn-outline-primary"><i class="fa fa-plus"></i> Agragar Nuevo Cronograma</button>
             <h4 class="form-section" style="margin-bottom:10px"><i class="fas fa-cogs"></i> Lista cronogramas creados</h4>
             <style type="text/css">
                 .scrollEreCustom {
-                    height: 250px;
+                    height: 280px;
                     width: 100%;
                     overflow-y: scroll;
                     overflow-x: hidden;
@@ -202,8 +202,9 @@
                     <div id="detalleProgramaAcademico" style="display:none">
                         <label style="margin:0 0 0 0">Nombre</label>
                         <div class="alert alert-primary" style="margin:0px 0 0px 0;padding:3px" id="NombreProgrmaAcademico">Azure Security Engineer</div>
-                        <label style="margin:0 0 0 0">Tipo</label>
+                        <!--<label style="margin:0 0 0 0">Tipo</label>
                         <div class="alert alert-warning" style="margin:0px 0 0px 0;padding:3px" id="TipoPA">Semi-Presencial</div>
+                        -->
                         <label style="margin:0 0 0 0">Modalidad</label>
                         <div class="alert alert-danger" style="margin:0px 0 0px 0;padding:3px" id="ModalidadProgramaAcademico">Azure Security Engineer</div>
                         <label style="margin:0 0 0 0">Objetivo</label>
@@ -383,65 +384,17 @@
             <div class="modal-body">
                 <h4 class="text-muted text-center"><i class="fa fa-warning"></i> CONFLICTOS EN LAS FECHAS, CON OTROS PROGRAMAS A CADEMICOS</h4>
                 <hr style="margin:0 0 10px 0" />
-                <div class="row" style="margin-top:5px" id="ProgramasHtml">
-
-
-                    <div class='col-xl-4 col-sm-6 col-lg-4 col-12'>
-                        <div class='cardCarCustom card border-primary mb-0'>
-                            <div class='card-body' style='padding:0px'>
-                                <h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>Azure Administrator Associate</h4>
-                            </div>
-                            <ul class='list-group list-group-flush'>
-                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
-                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>Semi-Presencial</span><i class='far fa-bookmark'></i> Modalidad
-                                </li>
-                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
-                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>2020/06</span><i class='fas fa-layer-group'></i> Gestion
-                                </li>
-                                <li class='list-group-item' style='padding:0.2rem;font-size:12px'>
-                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>V1</span><i class='fas fa-code-branch'></i> Version
-                                </li>
-                            </ul>
-                            <label class='text-center' style='margin:0px 0 0 0'>Tipo Programa</label>
-                            <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Diplomado</div>
-
-                            <hr style='margin:0px 0 2px 0'>
-                            <tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'>
-                                <h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>Modulo I</h5>
-                                <div class='row'>
-                                    <div class='col-6'>
-                                        <label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label>
-                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Grupo I</div>
-                                    </div>
-                                    <div class='col-6'>
-                                        <label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label>
-                                        <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>B-23</div>
-                                    </div>
-                                </div>
-                                <label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label>
-                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>26/01/2021-30/01/2021</div>
-                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Lunes, Miercoles, Viernes</div>
-                                <div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>7:30am-8:30am</div>
-
-                            </tex>
-                            <label style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label>
-                            <div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>Pepe Rios Ortega</div>
-                            <label style='margin:0px 0 0 0'><i class='fa fa-calendar-day'></i> Fechas Conficto</label>
-
-                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
-                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
-                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
-                            <div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> 18/01/2021</div>
-
-                            <ul class='list-group list-group-flush'>
-                                <li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'>
-                                    <span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>18/02/2021</span><i class='far fa-calendar-check'></i> Fecha registro
-                                </li>
-                            </ul>
+                <div class="row">
+                    <div class='col-xl-6 col-sm-6 col-lg-6 col-12'>
+                        <h4 class="text-muted text-center"><i class="fa fa-warning"></i> Aula no disponible</h4>
+                        <div class="row" style="margin-top:5px" id="AulaNoDisponibleHtml">
                         </div>
                     </div>
-
-
+                    <div class='col-xl-6 col-sm-6 col-lg-6 col-12'>
+                        <h4 class="text-muted text-center"><i class="fa fa-warning"></i> Docente no disponible</h4>
+                        <div class="row" style="margin-top:5px" id="DocenteNoDisponibleHtml">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -500,6 +453,7 @@
                 var ColorWarning = '#856404';
                 var html = "";
                 var _Estado = "";
+
                 O.Lst.forEach((value, i) => {
                     html += "<div class='col-xl-3 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-3'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.ProgramaAcademico + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul><label class='text-center' style='margin:0px 0 0 0'>Objetivo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Objetivo + "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li></ul><button type='button' onclick='AgregarModuloGrupo(" + value.IdCronograma+"," + value.IdProgramaAcademico+")' style='margin-top:5px' data-toggle='tooltip' data-placement='top' title='Agregar modulo grupo' class='btn btn-block mb-1 btn-outline-success btn-sm'><i class='fa fa-plus-circle'></i> Agregar Grupo Modulo</button><label class='text-center' style='margin:0px 0 0 0'>Modulos</label><hr style='margin:0px 0 2px 0'><div class='scrollEreCustom'>";
                     value.DetalleCronograma.forEach((valueDetalle, i) => {
@@ -530,11 +484,16 @@
                             //} else {
                             //    html += "<div class='col-6'><button type='button' onclick='Configurar(" + value.IdCronograma + "," + valueDetalle.IdDetalleCronograma + "," + valueDetalle.IdModulo + ",\"" + valueDetalle.Grupo + "\"," + valueDetalle.IdAmbiente + ",\"" + valueDetalle.FechaInicio + "\",\"" + valueDetalle.FechaFin + "\",\"" + valueDetalle.Dias + "\",\"" + valueDetalle.HorarioInicio + "\",\"" + valueDetalle.HorarioFin + "\"," + valueDetalle.IdDocente + ",\"" + valueDetalle.Docente + "\"," + value.IdProgramaAcademico + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Detalle Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button></div><div class='col-6'><button type='button' onclick='ActivarDesactivarDetalleCronograma(" + valueDetalle.IdDetalleCronograma + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Activar/Desactivar Cronograma' class='btn btn-block mb-1 btn-outline-secondary btn-sm'><i class='fa fa-circle'></i> Activar</button></div>";
                             //}
-                            html += "</div>";
+                            html += "</div><button type='button' onclick='EliminarDetalleCronograma(" + valueDetalle.IdDetalleCronograma + ")' style='margin-right:3px' data-toggle='tooltip' data-placement='top' title='Eliminar programacion' class='btn btn-block mb-1 btn-outline-dark btn-sm'><i class='fa fa-trash'></i> Eliminar</button>";
                         }
                         html += "</div></tex>";
                     });
-                    html += "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul><div style='margin-top:5px' class='footer'><button type='button' onclick='ModificarCronograma(" + value.IdCronograma + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button></div></div></div>";
+                    html += "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul><div style='margin-top:5px' class='footer'>";
+                    html += "<div class='row'>";
+                    html += "<div class='col-6'><button type='button' onclick='ModificarCronograma(" + value.IdCronograma + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button></div><div class='col-6'><button type='button' onclick='EliminarCronograma(" + value.IdCronograma + ")' style='margin-right:3px' class='btn btn-block mb-1 btn-outline-danger btn-sm'><i class='fa fa-trash'></i> Eliminar</button></div>";
+                    html += "</div>";
+                    html += "</div></div></div>";
+                    //html += "</div><ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul><div style='margin-top:5px' class='footer'><button type='button' onclick='ModificarCronograma(" + value.IdCronograma + ")' style='margin-right:0px' data-toggle='tooltip' data-placement='top' title='Modificar Cronograma' class='btn btn-block mb-1 btn-outline-primary btn-sm'><i class='fa fa-pen'></i> Modificar</button></div></div></div>";
                 });
                 $('#CrogramaHtml').html(html);
 
@@ -618,7 +577,7 @@
             $('#Grupo').val(Grupo == "Sin Grupo" ? "" : Grupo);
             $('#IdAmbiente').val(IdAmbiente);
             $('#FechaInicio').val(FechaInicio);
-            $('#FechaFin').val(FechaFin);            
+            $('#FechaFin').val(FechaFin);
             $('#ThemeColor').val(ThemeColor);
             $('input[name *= NameDias]').prop('checked', false);
             if (Dias != 'null') {
@@ -656,7 +615,7 @@
                 $('#detalleProgramaAcademico').show();
             }
             $.getJSON('@Url.Action("GetProgramaAcademicoAndModulo", "Cronograma")', { IdProgramaAcademico }, (O) => {
-                $('#TipoPA').val(O.ObjProgramaAcademico.TipoPA);
+                //$('#TipoPA').val(O.ObjProgramaAcademico.TipoPA);
                 $('#NombreProgrmaAcademico').html(O.ObjProgramaAcademico.Programa);
                 $('#ObjetivoProgramaAcademico').html(O.ObjProgramaAcademico.Objetivo);
                 $('#ModalidadProgramaAcademico').html(O.ObjProgramaAcademico.Modalidad);
@@ -759,21 +718,33 @@
                 contentType: 'application/json',
                 dataType: 'json',
                 data: JSON.stringify(obj),
-                success: function (O) {                   
-                    if (O.Progrmas.length > 0) {
+                success: function (O) {
+                    console.log(O)
+                    $('#AulaNoDisponibleHtml').empty();
+                    $('#DocenteNoDisponibleHtml').empty();
+                    if (O._AulaOcupado != null || O._DocenteOcupado != null) {
                         $('#Modal_Confictos').modal('show');
-                        var html = "";
-                        $('#ProgramasHtml').empty();
-                        O.Progrmas.forEach((value, i) => {
-                            html += "<div class='col-xl-4 col-sm-6 col-lg-4 col-12'><div class='cardCarCustom card border-primary mb-0'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Programa + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li > <li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul ><label class='text-center' style='margin:0px 0 0 0'>Tipo Programa</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.TipoPA + "</div><hr style='margin:0px 0 2px 0'><tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'><h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>" + value.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Grupo + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.FechaCurso + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Dias + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Horario + "</div></tex><label style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label><div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Docente + "</div><label style='margin:0px 0 0 0'><i class='fa fa-calendar-day'></i> Fechas Conficto</label>";
-                            O.FechasProgramaCofict.forEach((valueFechas, i) => {
-                                if (value.IdDetalleCronograma == valueFechas.IdDetalleCronograma) {
-                                    html += "<div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> " + valueFechas.FechaCalendario + "</div>";
-                                }
-                            });
-                            html += "<ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaDetalleCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul></div></div>";
+                    }
+                    var html = "";
+                    if (O._AulaOcupado != null) {
+                        var value = O._AulaOcupado;
+                        html += "<div class='col-xl-12 col-sm-12 col-lg-12 col-12'><div class='cardCarCustom card border-primary mb-0'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Programa + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li > <li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul ><label class='text-center' style='margin:0px 0 0 0'>Tipo Programa</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.TipoPA + "</div><hr style='margin:0px 0 2px 0'><tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'><h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>" + value.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Grupo + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.FechaCurso + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Dias + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Horario + "</div></tex><label style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label><div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Docente + "</div><label style='margin:0px 0 0 0'><i class='fa fa-calendar-day'></i> Fechas Conficto</label>";
+                        value.Fechas.forEach((valueFechas, i) => {
+                            html += "<div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> " + valueFechas + "</div>";
                         });
-                        $('#ProgramasHtml').append(html);
+                        html += "<ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaDetalleCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul></div></div>";
+                        $('#AulaNoDisponibleHtml').append(html);
+                    }
+                    if (O._DocenteOcupado != null) {
+                        $('#Modal_Confictos').modal('show');
+                        html = "";
+                        var value = O._DocenteOcupado;
+                        html += "<div class='col-xl-12 col-sm-12 col-lg-12 col-12'><div class='cardCarCustom card border-primary mb-0'><div class='card-body' style='padding:0px'><h4 class='card-title' style='text-align:center;margin-bottom:4px; color:#007bff'>" + value.Programa + "</h4></div><ul class='list-group list-group-flush'><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Modalidad + "</span><i class='far fa-bookmark'></i> Modalidad</li><li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Gestion + "</span><i class='fas fa-layer-group'></i> Gestion</li > <li class='list-group-item' style='padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.Version + "</span><i class='fas fa-code-branch'></i> Version</li></ul ><label class='text-center' style='margin:0px 0 0 0'>Tipo Programa</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.TipoPA + "</div><hr style='margin:0px 0 2px 0'><tex class='form-control' style='border: 1px solid #FDFAFA;background-color: #FDFAFA; height: auto'><h5 class='card-title ' style='text-align:center;margin-bottom:0px;'>" + value.Modulo + "</h5><div class='row'><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-users'></i> Grupo</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Grupo + "</div></div><div class='col-6'><label style='margin:0px 0 0 0'><i class='fa fa-home'></i> Ambiente</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Ambiente + "</div></div></div><label class='text-center' style='margin:0px 0 0 0'><i class='fa fa-calendar-check'></i> Fechas, Dias, Hras</label><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.FechaCurso + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Dias + "</div><div class='alert alert-primary text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Horario + "</div></tex><label style='margin:0px 0 0 0'><i class='fa fa-user'></i> Docente</label><div class='alert alert-warning text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'>" + value.Docente + "</div><label style='margin:0px 0 0 0'><i class='fa fa-calendar-day'></i> Fechas Conficto</label>";
+                        value.Fechas.forEach((valueFechas, i) => {
+                            html += "<div class='alert alert-danger text-center' style='margin:0px 0 5px 0;padding:0 0 0 0'><i class='far fa-angry'></i> " + valueFechas + "</div>";
+                        });
+                        html += "<ul class='list-group list-group-flush'><li class='list-group-item' style='margin-top:2px;padding:0.2rem;font-size:12px'><span style='padding:3px;font-size:11px' class='badge badge-pill bg-blue float-right'>" + value.FechaDetalleCronograma + "</span><i class='far fa-calendar-check'></i> Fecha registro</li></ul></div></div>";
+                        $('#DocenteNoDisponibleHtml').append(html);
                     }
                     if (O.responce) {
                         $('#Modal_ConfigurarDetalleCronogama').modal('hide');
@@ -782,6 +753,22 @@
                     }
                     MostarInfSave(O.StatusSave);
                 }
+            });
+        }
+        function EliminarDetalleCronograma(IdDetalleCronograma) {
+            $.getJSON('@Url.Action("Eliminar", "DetalleCronograma")', { IdDetalleCronograma }, (O) => {
+                if (O.responce) {
+                    AllCronograma(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
+            });
+        }        
+        function EliminarCronograma(IdCronograma) {
+            $.getJSON('@Url.Action("Eliminar", "Cronograma")', { IdCronograma }, (O) => {
+                if (O.responce) {
+                    AllCronograma(1, 1);
+                }
+                MostarInfSave(O.StatusSave);
             });
         }
     </script>

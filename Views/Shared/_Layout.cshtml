@@ -168,16 +168,16 @@
                     Data.forEach(value => {
                         switch (value.Tipo) {
                             case 'Success':
-                                toastr.success(value.Nombre);
+                                toastr.success(value.Nombre,"Success");
                                 break;
                             case 'warning':
-                                toastr.warning(value.Nombre);
+                                toastr.warning(value.Nombre,"Warning");
                                 break;
                             case 'info':
-                                toastr.info(value.Nombre);
+                                toastr.info(value.Nombre,"Info");
                                 break;
                             case 'error':
-                                toastr.error(value.Nombre);
+                                toastr.error(value.Nombre,"Error");
                                 break;
                             default:
                         }

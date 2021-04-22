@@ -102,12 +102,12 @@
                     html += "<tr><td>" + (i + 1) + "</td><td>" + value.Nombres + "</td><td>" + value.Apaterno + "</td><td>" + value.Amaterno + "</td><td>" + value.DNI + "</td><td><button class='btn btn-outline-info btn-sm' onclick='ViewPersona(" + value.Id + ",false)'><i class='fa fa-eye'></i></button></td><td><button class='btn btn-outline-secondary btn-sm' onclick='ViewPersona(" + value.Id + ",true)'><i class='fa fa-pen'></i></button></td></tr>";
                 });
                 $('#PersonaTableHtml').append(html);
-                var TotalPages = parseInt(O.TotalPages);
+                var TotalPages = parseInt(O.TotalPages);                
                 var rangeMin = 4;
                 var rangeMax = parseInt(TotalPages) == 1 ? 1 : rangeMin && parseInt(TotalPages) < rangeMin ? parseInt(TotalPages) : rangeMin;
 
-                const paging = { range: rangeMax, pages: TotalPages };
-                var PageArray = doPaging(pageIndex, paging);
+                const paging = { range: rangeMax, pages: TotalPages };                
+                var PageArray = doPaging(pageIndex, paging);               
                 var sTatusPrev = (pageIndex <= 1) ? true : false;
                 var sTatuslast = (pageIndex >= paging.pages) ? true : false;
                 var html = "<li class='page-item first " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(1, " + TotalPages + ")'>First</a></li><li class='page-item prev  " + (sTatusPrev ? "disabled" : "") + "'><a href='#' class='page-link' onclick='ListarPersonas(" + parseInt(pageIndex - 1) + ", " + TotalPages + ")'>Prev</a></li>";
@@ -122,7 +122,7 @@
                 $('#PageInscriptos').html(html);
             });
         }
-        function doPaging(current, { range, pages, start = 1 }) {
+        function doPaging(current, { range, pages, start = 1 }) {            
             const paging = [];
             var i = Math.min(pages + start - range, Math.max(start, current - (range / 2 | 0)));
             const end = i + range;
